@@ -19,7 +19,10 @@ public class UserHelperTest {
 	    
 	}
 
-
+	
+	/**
+	* Tests that adding a user to the database works properly
+	*/
 	public void addUserTest() throws Exception{
 	    UserHelper instance = new UserHelper();
 	    ArrayList<User> userList = new ArrayList<User>();
@@ -41,6 +44,9 @@ public class UserHelperTest {
 	}//addUserTest
 	
 
+	/**
+ 	* Test for changing a user's password	 
+ 	*/ 
 	public void passwordChangeTest(){
 
 	    UserHelper instance = new UserHelper();
@@ -67,6 +73,10 @@ public class UserHelperTest {
 	}//passwordChangeTest()
 
 
+	/**
+ 	* Test for updating a user's profile image
+ 	*/
+	public void updateUserImage() throws Exception(){}
 
 
 
