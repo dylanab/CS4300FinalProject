@@ -1,6 +1,5 @@
 #
-#	this SQL file creates the schema for the system database
-#	when run, it will clear the existing database and replace it with empty tables
+#	this SQL file creates the schema for the Politalk database
 #
 
 use politalk
@@ -15,7 +14,7 @@ CREATE TABLE Users (
 	Role INT,
 );
 
-DROP TABLE IF EXISTS Articles
+DROP TABLE IF EXISTS Articles;
 
 CREATE TABLE Articles (
 	Id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
