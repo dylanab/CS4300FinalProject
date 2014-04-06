@@ -19,15 +19,16 @@
 		    title: ${article.title},
 		    author: ${article.author},
 		    categories: [
-		    	<c:if test="${empty (article.catagories)}">
+		    	<c:if test="${empty(article.catagories)}">
 		    	" "
 		    	</c:if>
 		    	<c:forEach var = "catagory" items="${article.catagories}" varStatus="cat_status">
 		    		 ${catagory} <c:if test="${!cat_status.last}" >,  </c:if>
 		    	</c:forEach>
 		    ],
+		    imagepath: ${article.image_path},
 		    date: ${article.date},
-		    hits: ${article.his},
+		    hits: ${article.hits},
 		    id: ${article.id}
 		} <c:if test="${!art_status.last}" >,  </c:if> 
 		</c:forEach>
