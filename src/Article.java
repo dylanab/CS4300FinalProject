@@ -16,6 +16,7 @@ private int hits;
 private int author_id;
 private int response_id;
 
+
 Article(int id, User user, String title, String text, String image_path, String categories, int hits, int author_id, int response_id){
 	this.id = id;
 	this.user = user;
@@ -26,7 +27,23 @@ Article(int id, User user, String title, String text, String image_path, String 
 	this.hits = hits;
 	this.author_id = author_id;
 	this.response_id = response_id;
-} //constructor
+} //normal constructor
+
+/**
+ * Does not pass initialize text field
+ */
+Article(int id, User user, String title, String image_path, String categories, int hits, int author_id, int response_id){
+        this.id = id;
+        this.user = user;
+        this.title = title;
+        
+        this.image_path = image_path;
+        this.categories = categories;
+        this.hits = hits;
+        this.author_id = author_id;
+        this.response_id = response_id;
+} //constructor without text
+
 
 
 
