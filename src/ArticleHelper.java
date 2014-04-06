@@ -3,6 +3,8 @@ package pt;
 import java.sql.*;
 import java.util.ArrayList;
 
+import org.jooq.*;
+
 public class ArticleHelper {
 	protected Connection conn = null;
 	protected Statement statement = null;
