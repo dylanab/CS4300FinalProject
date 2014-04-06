@@ -17,7 +17,7 @@
 		<c:forEach var="article" items="${articleList}" varStatus="art_status">   
 		{
 		    title: ${article.title},
-		    author: ${article.author},
+		    author: ${article.author_id},
 		    categories: [
 		    	<c:if test="${empty(article.catagories)}">
 		    	" "
@@ -27,7 +27,6 @@
 		    	</c:forEach>
 		    ],
 		    imagepath: ${article.image_path},
-		    date: ${article.date},
 		    hits: ${article.hits},
 		    id: ${article.id}
 		} <c:if test="${!art_status.last}" >,  </c:if> 
