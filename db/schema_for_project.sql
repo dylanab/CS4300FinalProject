@@ -21,6 +21,7 @@ CREATE TABLE Articles (
 	Id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	Catagories VARCHAR(200),
 	AuthorID INT,
+	Hits INT,
 	ImageFilePath VARCHAR(200),
 	ArticleText MEDIUMTEXT,
 	Response INT,
