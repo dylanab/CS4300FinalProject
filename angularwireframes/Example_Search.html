@@ -17,8 +17,11 @@
 	</ul>
       </div>
       <div class = "body">
-	<input id="searchBox" type="text" ng-model="search.title"/>
+	
+	<input id="searchBox" type="text" ng-model="search"/>
+
 	<table class="results">
+
 	  <tr ng-repeat="article in articleList.articles | orderBy:-'hits' | limitTo:5 | filter:search">
 	    <td>
 	      <table>
@@ -35,6 +38,6 @@
       </div>
     </div>
       <script type="text/javascript" src="js/angular.min.js"></script>
-      <script type="text/javascript" src="js/main.js"></script>      
+      <script type="text/javascript" src="js/searchExample.js"></script>      
   </body>
 </html>
