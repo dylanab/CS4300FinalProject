@@ -17,11 +17,11 @@ private String image_path;
 private String categories;
 
 Article(int id, User user, String title, String text, String image_path, String categories){
-	this id = id;
+	this.id = id;
 	this.user = user;
 	this.title = title;
 	this.text = text;
-	this image_path = image_path;
+	this.image_path = image_path;
 	this.categories = categories
 } //constructor
 
