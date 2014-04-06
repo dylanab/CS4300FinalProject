@@ -1,8 +1,5 @@
 package pt;
 
-import java.util.ArrayList;
-
-
 
 /**
  * DTO representing an Article
@@ -22,7 +19,7 @@ Article(int id, User user, String title, String text, String image_path, String 
 	this.title = title;
 	this.text = text;
 	this.image_path = image_path;
-	this.categories = categories
+	this.categories = categories;
 } //constructor
 
 
@@ -32,7 +29,7 @@ public User getUser(){ return user; }
 public String getTitle(){ return title; }
 public String getText(){ return text; }
 public String getImage_path(){ return image_path; }
-public String getCategories(){ return categories }
+public String getCategories(){ return categories; }
 
 
 
