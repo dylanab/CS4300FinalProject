@@ -30,7 +30,7 @@
 		    hits: ${article.his},
 		    id: ${article.id}
 		} <c:if test="${!art_status.last}" >,  </c:if> 
-		<c:forEach>
+		</c:forEach>
 	    ];
 	    return articleList;
 	});
