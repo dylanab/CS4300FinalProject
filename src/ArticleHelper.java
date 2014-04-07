@@ -74,7 +74,7 @@ public class ArticleHelper {
 					allArticles.add(articleFromDB);
 				}//while
 				//may use jOOQ to convert the resultset into a json object
-				jsonAricles = DSL.using(conn).fetch(r).formatJSON();
+				jsonArticles = DSL.using(conn).fetch(r).formatJSON();
 			}
 			return allArticles;
 		} catch (Exception e){
