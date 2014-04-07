@@ -2,6 +2,8 @@ package pt;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.jooq.*;
 
@@ -63,13 +65,16 @@ public class ArticleHelper {
 					u_password = r.getString(9);
 					u_role = r.getInt(10);
 					a_title = r.getString(11);
+					List<String> catagories_list = Arrays.asList(a_catagories.split(", "));
 					Article articleFromDB = new Article(a_id, new User(u_id, u_username, u_password, u_role), a_title, a_articleText, a_imageFilePath, a_catagories);
+					//Article articleFromDB = new Article(a_id, new User(u_id, u_username, u_password, u_role), a_title, a_articleText, a_imageFilePath, catagories_list);
+					//commented out articleFromDB is for a constructor that takes a list of catagories as opposed to a string
 					//maybe create user depending on how parameters for article are defined
 					//create article
 					allArticles.add(articleFromDB);
 				}//while
 				//may use jOOQ to convert the resultset into a json object
-				jsonArticles = DSL.using(conn).fetch(resultSet).formatJSON();
+				jsonAricles = DSL.using(conn).fetch(r).formatJSON();
 			}
 			return allArticles;
 		} catch (Exception e){
