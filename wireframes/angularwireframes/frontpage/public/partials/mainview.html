@@ -1,1 +1,14 @@
-{{test}}
+<div class="navBar">
+  <ul> 
+    <li ng-click="changeCategoryTo('')">Home</li>
+    <li ng-click="changeCategoryTo('Politics')">Politics</li>
+    <li ng-click="changeCategoryTo('Economy')">Economy</li>
+    <li ng-click="changeCategoryTo('Science')">Science</li>
+    <li ng-click="changeCategoryTo('Technology')">Technology</li>
+    <li ng-click="changeCategoryTo('Sports')">Sports</li>
+    <li><a href="#/search">Search</a></li>
+  </ul>
+</div>
+<div class="body">
+  Searching for <div ng-if="search.categories == ''">all</div>{{search.categories}}
+</div>
