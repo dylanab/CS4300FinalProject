@@ -1,0 +1,29 @@
+<div class="navBar">
+  <ul> 
+    <li ng-click="changeCategoryTo('')">Home</li>
+    <li ng-click="changeCategoryTo('Politics')">Politics</li>
+    <li ng-click="changeCategoryTo('Economy')">Economy</li>
+    <li ng-click="changeCategoryTo('Science')">Science</li>
+    <li ng-click="changeCategoryTo('Technology')">Technology</li>
+    <li ng-click="changeCategoryTo('Sports')">Sports</li>
+  </ul>
+</div>
+<div class="body">
+  Searching for <div ng-if="search.categories == ''">all</div>{{search.categories}}
+ <input id="searchBox" type="text" ng-model="search.name"/>
+ <table class="results">
+   <tr ng-repeat="article in articleList.articles | orderBy:-'hits' | limitTo:5 | filter:search.categories | filter:search.name">
+     <td>
+       <table>
+         <tr><th><a href="#/{{article.title}}">{{article.title}}</a><th\
+								       ></tr>
+         <tr><td>Author:</td><td>{{article.author}}</td></tr>
+	 <tr><td>Published:</td><td>{{article.date}}</td></tr>
+         <tr>
+           <td>Categories:</td><td ng-repeat="category in article.categories">{{category}}</td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
+</div>
