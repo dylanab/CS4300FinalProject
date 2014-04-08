@@ -13,6 +13,13 @@ public class ArticleHelper {
 	protected ArrayList<Article> allArticles;
 	protected String jsonAricles = null;
 	
+	/**
+	 * Create the driver, connection, and prepared statement for the database calls.
+	 * @param url
+	 * @param user
+	 * @param pass
+	 */
+	
 	public ArticleHelper(String url, String user, String pass) {
 		allArticles = new ArrayList<Article>();
 		try{
