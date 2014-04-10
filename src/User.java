@@ -18,6 +18,14 @@ User(int id, String name, int role, String password, String image_path){
 	this.image_path = image_path;
 }//constructor
 
+User(String name, int role, String image_path){
+	this.id = -1;
+	this.name = name;
+	this.role = role;
+	this.password = "";
+	this.image_path = image_path;
+}//constructor without a password or id to pass a new user to the UserHelper 
+
 
 public int getId(){ return id; }
 public String getName(){ return name; }

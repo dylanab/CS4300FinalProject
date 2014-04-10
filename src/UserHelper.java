@@ -68,9 +68,9 @@ public class UserHelper {
 		User toReturn = null;
 		if(newUser != null) { //make sure parameter is not null
 			String query = "Insert into Users (Username, Password, ProfilePicPath, Role ) vaules ( " +
-					"'" + newUser.getUsername() + "', " +
+					"'" + newUser.getName() + "', " +
 					"'" + npassword + "', " +
-					"'" + newUser.ProfilePicPath() + "', " +
+					"'" + newUser.getImage_path() + "', " +
 					"'" + newUser.getRole() + "' )";
 			try {
 				updateReturn = statement.executeUpdate(query);
@@ -80,7 +80,7 @@ public class UserHelper {
 					if(statement.execute(query)) {
 						ResultSet r = statement.getResultSet();
 						uId = r.getInt(1);
-						toReturn = new User();//add parameters
+						toReturn = new User(uid, newUser.getName(), newUser.getRole(), npassword, newUser.getImage_path());
 					}
 				}
 			}catch (Exception e) {
