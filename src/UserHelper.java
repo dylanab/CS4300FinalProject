@@ -49,7 +49,7 @@ public class UserHelper {
 					path = r.getString(2);
 					role = r.getInt(3);
 				}
-				u = new User(); //add parameters
+				u = new User(uid, name, role, password, path); //add parameters
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -75,12 +75,12 @@ public class UserHelper {
 			try {
 				updateReturn = statement.executeUpdate(query);
 				if(updateReturn > 0){
-					query = "Select Uid from Users where Username = " + newUser.getUsername();
+					query = "Select Uid from Users where Username = " + newUser.getName();
 					int uId = 0;
 					if(statement.execute(query)) {
 						ResultSet r = statement.getResultSet();
 						uId = r.getInt(1);
-						toReturn = new User(uid, newUser.getName(), newUser.getRole(), npassword, newUser.getImage_path());
+						toReturn = new User(uId, newUser.getName(), newUser.getRole(), npassword, newUser.getImage_path());
 					}
 				}
 			}catch (Exception e) {
