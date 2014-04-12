@@ -10,6 +10,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Profile - PoliTalk</title>
 </head>
+
+<%-- role is the session attribute --%>
 <c:if test="${role} = 'admin'">
     <a href="url of admincontrols" />
     <a href="url of modControls" />
