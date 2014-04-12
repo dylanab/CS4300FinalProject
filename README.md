@@ -12,4 +12,4 @@ Chris: Wireframes, wireframes , wireframes. Going to be adding in some AngularJS
 
 Michael: Added the schema; see commit comment
 
-Luke: UserController and UserHelper
+Luke: Setting up the basic functionality of the views. I also need to rethink the Servlet logic since I just learned a few new things I didn't get from the Ticket assignment.
