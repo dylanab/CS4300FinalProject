@@ -10,6 +10,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Profile - PoliTalk</title>
 </head>
+<c:if test="${role} = 'admin'">
+    <a href="url of admincontrols" />
+    <a href="url of modControls" />
+</c:if>
+
+<c:if test="${role} = 'mod'">
+    <a href="url of adminControls" />
+    <a href="url of modControls" />
+</c:if>
+
 
 ${user.name}
 ${user.image_path}
