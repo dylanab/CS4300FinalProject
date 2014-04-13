@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
 	Uid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	Username VARCHAR(50),
-	Password VARCHAR(50),
+	Password VARCHAR(64),
 	ProfilePicPath VARCHAR(200),
 	Role INT,
 );
