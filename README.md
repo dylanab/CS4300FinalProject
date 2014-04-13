@@ -5,6 +5,11 @@ High priority:
 !!!!Data Model!!!! We cannot proceed to making DAOs and DTOS without this!!!!!!!!
 Wireframes
 
+User roles are stored as Ints!
+1 : Guest
+2 : User
+3 : Mod
+4 : Admin
 
 What are you working on?
 
