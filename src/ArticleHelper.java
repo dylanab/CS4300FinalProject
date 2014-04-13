@@ -10,8 +10,7 @@ public class ArticleHelper {
 	protected Connection conn = null;
 	protected Statement statement = null;
 	protected ArrayList<Article> allArticles;
-	protected String jsonAricles = null;
-	
+
 	/**
 	 * Create the driver, connection, and prepared statement for the database calls.
 	 * @param url

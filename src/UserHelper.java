@@ -89,4 +89,26 @@ public class UserHelper {
 		}
 		return toReturn;
 	}
+	
+	/**
+	 * Changes a users password and returns either the user if the change is successful
+	 * or null if it is unsuccessful
+	 * @param user
+	 * @param nPassword
+	 * @return
+	 */
+	public User changePW(User user, String nPassword){
+		User u = null;
+		int updateReturn =0;
+		String query = "UPDATE Users SET Password='"+nPassword+"' WHERE Uid='"+user.getId()+"'";
+		try{
+			updateReturn = statement.executeUpdate(query);
+			if(updateReturn>0){
+				u = new User(user.getId(), user.getName(), user.getRole(), nPassword, user.getImage_path());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return u;
+	}
 }
