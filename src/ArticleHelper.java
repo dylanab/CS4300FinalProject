@@ -24,11 +24,11 @@ public class ArticleHelper {
 			Class.forName("com.mysql.jdbc.Driver").newInstance(); //create driver
 			conn = DriverManager.getConnection(url, user, pass); //connect to db passed to constructor
 			if(conn == null){
-				//unable to connect to db
+				throw new Exception("Unable to connect to database");
 			}
 			statement = conn.createStatement();
 			if(statement == null){
-				//unable to create statement
+				throw new Exception("Unable to create a valid statement for the database");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
