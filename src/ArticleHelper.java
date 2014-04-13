@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//import org.jooq.*;
 
 public class ArticleHelper {
 	protected Connection conn = null;
@@ -84,19 +83,67 @@ public class ArticleHelper {
 				//may use jOOQ to convert the resultset into a json object
 				//jsonArticles = DSL.using(conn).fetch(r).formatJSON();
 			}
-			return allArticles;
+
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		
+		return allArticles;
 	}
+	
 	/**
-	 * Get the jsonArticles string created in the getArticles method
+	 * A method that adds a new article to the database and returns the article id or -1 if the article is not
+	 * added to the database
+	 * @param nArticle
+	 * @return
 	 */
-/*	public String getJSON() {
-		if(jsonArticles == null)
-			this.getArticles();
-		return jsonArticles;
-	}*/
-
+	public int addArticleToDB(Article nArticle) {
+		String query = "Insert into Articles ( Title, Catagories, AuthorID, Hits, ImageFilePath, ArticleText, Response ) values (" +
+				"'"+nArticle.getTitle() +"', "
+				+ "'"+nArticle.getCategories()+"', "
+				+"'"+nArticle.getAuthor_id()+"', "
+				+"'0', "
+				+"'"+nArticle.getImage_path()+"', "
+				+"'"+nArticle.getText()+"', "
+				+"'null' )";
+		int aId=0;
+		int q=0;
+		try {
+			q=statement.executeUpdate(query);
+			if(q==1){
+				String sql = "select last_insert_id()";
+				if(statement.execute(sql)){
+					ResultSet r = statement.getResultSet();
+					while(r.next()){
+						aId = r.getInt(1);
+						if(aId<=0){
+							aId=-1;
+						}
+					}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return aId;
+	}
+	
+	/**
+	 * Makes changes to an article in a database and return the database 
+	 * id for the article or -1 if the article does not update
+	 * @param eArticle
+	 * @return
+	 */
+	public int editArticle(Article eArticle){
+		int aId = 0;
+		int q=0;
+		String query = "UPDATE Articles SET Title='"+eArticle.getTitle()+"', Catagories='"
+				+eArticle.getCategories() +"', ImageFilePath='"+eArticle.getImage_path()
+				+"', ArticleText='"+eArticle.getText()+"'WHERE Id='"+eArticle.getId()+"'";
+		try{
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return aId;
+	}
 }
