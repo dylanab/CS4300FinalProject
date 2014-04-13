@@ -5,16 +5,13 @@
  * AngularJS module ngRoute
  */
 angular.module('frontexample', [ //module dependencies
+
     'ngRoute',
     'frontExampleArticleList'
 ])
     .config(function ($routeProvider, $locationProvider) {
 	$routeProvider
-	    .when('/', {
-		templateUrl: 'partials/mainview.html',
-		controller: HomeCtrl
-	    })
-	    .when('/search', {
+	    .when('/:articleId?', {
 		templateUrl: 'partials/searchview.html',
 		controller: SearchCtrl
 	    })

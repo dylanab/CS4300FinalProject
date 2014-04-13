@@ -10,5 +10,21 @@
   </ul>
 </div>
 <div class="body">
-  Searching for <div ng-if="search.categories == ''">all</div>{{search.categories}}
+  <table class="mainArticle">
+    
+  </table>
+  <table class="popular">
+    <tr ng-repeat="article in articleList.articles | orderBy:-'hits' | limitTo:5 | filter:search.categories">
+      <td>
+	<table ng-click="changeMainArticle({{article.title}}">
+          <tr><th><a href="#/{{article.title}}">{{article.title}}</a><th></tr>
+          <tr><td>Author:</td><td>{{article.author}}</td></tr>
+          <tr><td>Published:</td><td>{{article.date}}</td></tr>
+          <tr>
+            <td>Categories:</td><td ng-repeat="category in article.categories">{{category}}</td>
+          </tr>
+	</table>
+     </td>
+    </tr>
+  </table>
 </div>

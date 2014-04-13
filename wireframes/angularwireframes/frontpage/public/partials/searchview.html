@@ -10,7 +10,12 @@
 </div>
 <div class="body">
   Searching for <div ng-if="search.categories == ''">all</div>{{search.categories}}
- <input id="searchBox" type="text" ng-model="search.name"/>
+ 
+ <form ng-submit="updateSearch()">
+   <input id="searchBox" type="text" ng-model="searchBox"/>
+   <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+ </form>
+ {{mainArticleId}}
  <table class="results">
    <tr ng-repeat="article in articleList.articles | orderBy:-'hits' | limitTo:5 | filter:search.categories | filter:search.name">
      <td>

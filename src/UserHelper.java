@@ -18,11 +18,11 @@ public class UserHelper {
 			Class.forName("com.mysql.jdbc.Driver").newInstance(); //create driver
 			conn = DriverManager.getConnection(url, username, password); //connect to db passed to constructor
 			if(conn == null){
-				//unable to connect to db
+				throw new Exception("Unable to connect to database");
 			}
 			statement = conn.createStatement();
 			if(statement == null){
-				//unable to create statement
+				throw new Exception("Unable to create a valid statement for the database");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -88,5 +88,27 @@ public class UserHelper {
 			}
 		}
 		return toReturn;
+	}
+	
+	/**
+	 * Changes a users password and returns either the user if the change is successful
+	 * or null if it is unsuccessful
+	 * @param user
+	 * @param nPassword
+	 * @return
+	 */
+	public User changePW(User user, String nPassword){
+		User u = null;
+		int updateReturn =0;
+		String query = "UPDATE Users SET Password='"+nPassword+"' WHERE Uid='"+user.getId()+"'";
+		try{
+			updateReturn = statement.executeUpdate(query);
+			if(updateReturn>0){
+				u = new User(user.getId(), user.getName(), user.getRole(), nPassword, user.getImage_path());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return u;
 	}
 }
