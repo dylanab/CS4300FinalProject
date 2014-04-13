@@ -133,13 +133,16 @@ public class ArticleHelper {
 	 * @return
 	 */
 	public int editArticle(Article eArticle){
-		int aId = 0;
+		int aId = -1;
 		int q=0;
 		String query = "UPDATE Articles SET Title='"+eArticle.getTitle()+"', Catagories='"
 				+eArticle.getCategories() +"', ImageFilePath='"+eArticle.getImage_path()
 				+"', ArticleText='"+eArticle.getText()+"'WHERE Id='"+eArticle.getId()+"'";
 		try{
-			
+			q=statement.executeUpdate(query);
+			if(q>0){
+				aId=eArticle.getId();
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
