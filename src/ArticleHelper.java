@@ -72,7 +72,7 @@ public class ArticleHelper {
 					u_role = r.getInt(10);
 					a_title = r.getString(11);
 					List<String> catagories_list = Arrays.asList(a_catagories.split(", "));
-					Article articleFromDB = new Article(a_id, new User(u_id, u_username, u_role, u_password, u_imagePath), a_articleText, a_imageFilePath, a_catagories, a_hits, u_id, a_response);
+					Article articleFromDB = new Article(a_id, new User(u_id, u_username, u_role, u_password, u_imagePath),a_title, a_articleText, a_imageFilePath, a_catagories, a_hits, u_id, a_response);
 					//Article articleFromDB = new Article(a_id, new User(u_id, u_username, u_password, u_role), a_title, a_articleText, a_imageFilePath, catagories_list);
 					//commented out articleFromDB is for a constructor that takes a list of catagories as opposed to a string
 					//maybe create user depending on how parameters for article are defined
