@@ -13,18 +13,18 @@
    User:<input type="text" name="user" required /><br>
    Pass:<input type="password" name="pass" required />
    Confirm pass:<input type="password" name="confirmpass" required /><br>
-   <input type="radio" name="role" value="user" />User<br>
-   <input type="radio" name="role" value="admin" />Admin<br>
-   <input type="radio" name="role" value="mod" />Moderator
+   <input type="radio" name="role" value="2" />User<br>
+   <input type="radio" name="role" value="4" />Admin<br>
+   <input type="radio" name="role" value="3" />Moderator
 <input type="submit" value="submit" />
 </form>
 
 <h4>Change role of user<h4>
 <form action="/adminControls" method="get">
    <input type="text" name="user" required />
-   <input type="radio" name="role" value="user" />User<br>
-   <input type="radio" name="role" value="admin" />Admin<br>
-   <input type="radio" name="role" value="mod" />Moderator
+   <input type="radio" name="role" value="2" />User<br>
+   <input type="radio" name="role" value="4" />Admin<br>
+   <input type="radio" name="role" value="3" />Moderator
 </form>
 
 

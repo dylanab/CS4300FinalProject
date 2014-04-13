@@ -12,12 +12,12 @@
 </head>
 
 <%-- role is the session attribute --%>
-<c:if test="${role} = 'admin'">
+<c:if test="${role} == 4">
     <a href="/adminControls" />
     <a href="/modControls" />
 </c:if>
 
-<c:if test="${role} = 'mod'">
+<c:if test="${role} == 3">
     <a href="/adminControls" />
     <a href="/modControls" />
 </c:if>
