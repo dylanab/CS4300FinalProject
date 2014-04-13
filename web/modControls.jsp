@@ -9,7 +9,7 @@
 
 
 <h4>Remove an Article</h4>
-<form action="Article" method="post">
+<form action="/modControls" method="post">
 Article ID: <input type="text" name="article_id" required />
 <input type="submit" value="submit"/>
 </form>

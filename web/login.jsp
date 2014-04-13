@@ -8,7 +8,7 @@
 </head>
 
 
-<form action="Login" method="post">
+<form action="/Login" method="post">
 username: <input type="text" name="user" required />
 password: <input type="password" name="pass" required />
 <input type="submit" value="submit"/>

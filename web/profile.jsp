@@ -13,13 +13,13 @@
 
 <%-- role is the session attribute --%>
 <c:if test="${role} = 'admin'">
-    <a href="url of admincontrols" />
-    <a href="url of modControls" />
+    <a href="/adminControls" />
+    <a href="/modControls" />
 </c:if>
 
 <c:if test="${role} = 'mod'">
-    <a href="url of adminControls" />
-    <a href="url of modControls" />
+    <a href="/adminControls" />
+    <a href="/modControls" />
 </c:if>
 
 

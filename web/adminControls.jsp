@@ -9,7 +9,7 @@
 
 
 <h4>Add new user</h4>
-<form action="User" method="post">
+<form action="/adminControls" method="post">
    User:<input type="text" name="user" required /><br>
    Pass:<input type="password" name="pass" required />
    Confirm pass:<input type="password" name="confirmpass" required /><br>
@@ -20,7 +20,7 @@
 </form>
 
 <h4>Change role of user<h4>
-<form action="User" method="get">
+<form action="/adminControls" method="get">
    <input type="text" name="user" required />
    <input type="radio" name="role" value="user" />User<br>
    <input type="radio" name="role" value="admin" />Admin<br>
@@ -29,7 +29,7 @@
 
 
 <h4>Change user password</h4>
-<form action="User" method="get">
+<form action="/adminControls" method="get">
    User:<input type="text" name="user" required /><br>
    Pass:<input type="password" name="pass" required />
    Confirm pass:<input type="password" name="confirmpass" required /><br>
