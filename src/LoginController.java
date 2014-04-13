@@ -20,7 +20,6 @@ public class LoginController extends HttpServlet {
     public LoginController() {
         
     }
-
 	/**
 	 * Idempotent actions: 
 	 */
@@ -49,7 +48,11 @@ public class LoginController extends HttpServlet {
 
 	    String hex_pass = Encrypyer.toSha256(password);
 
-	    UserHelper userhelper = new UserHelper();
+	    String db_user = "testuser";
+	    String db_pass = "testpass";
+	    String db_url = "jdbc:mysql://localhost/testdb";
+
+	    UserHelper userhelper = new UserHelper(db_url, db_user, db_pass);
 	    User user = userhelper.validate(username, hex_pass);
 	    if(user != null) {
 		//login successful.
@@ -64,6 +67,6 @@ public class LoginController extends HttpServlet {
 		request.setAttribute("error", "name/pass incorrect");
 		dispatcher = ctx.getReqestDispatcher("/login.jsp");
 	    }
-	    
+	    dispatcher.forward(request, response);
 	}//doPost
 }//class
