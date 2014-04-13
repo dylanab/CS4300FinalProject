@@ -97,7 +97,7 @@ public class ArticleHelper {
 	 */
 	public Article getArticle(int id){
 		Article a = null;
-		String query = "Select a.Catagories, u.Uid, a.Hits, a.ImageFilePath, a.ArticleText, a.Response, u.Username, u.Password, u.ProfilePicPath, u.Role, a.Title from Articles a, Users u";
+		String query = "Select a.Catagories, u.Uid, a.Hits, a.ImageFilePath, a.ArticleText, a.Response, u.Username, u.Password, u.ProfilePicPath, u.Role, a.Title from Articles a, Users u Where a.id='"+id+"'";
 		String a_catagories = null;
 		int u_id = 0;
 		int a_hits = 0;
