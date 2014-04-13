@@ -26,6 +26,12 @@
 ${user.name}
 ${user.image_path}
 
+
+<form action="/profile" method="get">
+    <input type="text" name="searchString" required />
+    <input type="submit" value="submit" />
+</form>
+
 <table cellpadding="10">
 <tr> <td></td> <td>Article Title</td> <td>Hits</td>  </tr>
 <c:forEach items="${articleList}" var="article">
