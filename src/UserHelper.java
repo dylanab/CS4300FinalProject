@@ -63,13 +63,13 @@ public class UserHelper {
 	 * @param npassword
 	 * @return
 	 */
-	public User addNewUser(User newUser, String npassword) {
+	public User addNewUser(User newUser) {
 		int updateReturn = 0;
-		User toReturn = null;
+		User toReturn = newUser;
 		if(newUser != null) { //make sure parameter is not null
 			String query = "Insert into Users (Username, Password, ProfilePicPath, Role ) vaules ( " +
 					"'" + newUser.getName() + "', " +
-					"'" + npassword + "', " +
+					"'" + newUser.getPassword() + "', " +
 					"'" + newUser.getImage_path() + "', " +
 					"'" + newUser.getRole() + "' )";
 			try {
@@ -80,7 +80,7 @@ public class UserHelper {
 					if(statement.execute(query)) {
 						ResultSet r = statement.getResultSet();
 						uId = r.getInt(1);
-						toReturn = new User(uId, newUser.getName(), newUser.getRole(), npassword, newUser.getImage_path());
+						toReturn.setId(uId);
 					}
 				}
 			}catch (Exception e) {
