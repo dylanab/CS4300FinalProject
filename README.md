@@ -17,4 +17,4 @@ Chris: Wireframes, wireframes , wireframes. Going to be adding in some AngularJS
 
 Michael: Added the schema; see commit comment
 
-Luke: Setting up the basic functionality of the views. I also need to rethink the Servlet logic since I just learned a few new things I didn't get from the Ticket assignment.
+Luke: So until 5 minutes ago I was under the impression that the servlet made helper objects and setAttributes for the jsps. Chris showed me you can just call helper functions from jsp. Which makes SO MUCH SENSE. So now I'm going to throw out a lot of servlet code and redo it the simple way. AND add usebeans and jsp:setproperties to the jsps
