@@ -47,6 +47,7 @@ public class MasterController extends HttpServlet {
     try{
 
 	int role = -1;
+	int article_id = -1;
 	
 	HttpSession session = request.getSession();
         String session_user = (String)session.getAttribute("username");
@@ -59,7 +60,10 @@ public class MasterController extends HttpServlet {
         String pass = request.getParameter("pass");
         String confirmpass = request.getParameter("confirmpass");
         if( (request.getParameter("role")) != null ){
-            role = Integer.parseInt( request.getParameter("worker_id") );
+            role = Integer.parseInt( request.getParameter("role") );
+        }
+	if( (request.getParameter("article_id")) != null ){
+            article_id = Integer.parseInt( request.getParameter("article_id") );
         }
 
         /* trim strings user, pass, confirmpass */
@@ -74,21 +78,16 @@ public class MasterController extends HttpServlet {
 	String userPath = request.getServletPath();
 	
 	if(userPath.equals("/index"){
-	    /* TODO: dispatch to index */
+	    /* dispatch to index */
+	    dispatcher = ctx.getRequestDispatcher("/index.jsp");
+            dispatcher.forward(request, response);
 	}
 	else if(userPath.equals("/adminControls")){
-
-	    if(role != -1){
-		/* TODO: request to change a user's role */
-		UserHelper helper = new UserHelper();
-	    }
-	    else{ 
 		/* request to access admincontrols */
 		if(session_role == 4){
 		    dispatcher = ctx.getRequestDispatcher("/adminControls.jsp");
 		    dispatcher.forward(request, response);
-		}
-	    }
+		}   
 	}//else if
 	else if(userPath.equals("/modControls")){
 	    /* request to access modcontrols) */	
@@ -98,15 +97,39 @@ public class MasterController extends HttpServlet {
 	    }
 	}//else if
 	else if(userPath.equals("/articleView")){
-	    /* dispatch to articleview TODO: set attributes */
-	    dispatcher = ctx.getRequestDispatcher("/articleView.jsp");
-            dispatcher.forward(request, response);
+	    /* dispatch to articleview */
+	    boolean x = false;
+	    ArticleHelper helper = new helper();
+	    x = helper.checkForArticle(article_id);	
+
+	    if(x){
+		request.setAttribute("article", article_id);
+	        dispatcher = ctx.getRequestDispatcher("/articleView.jsp");
+                dispatcher.forward(request, response);
+	    }
+	    else{
+		dispatcher = ctx.getRequestDispatcher("/error.jsp");
+                dispatcher.forward(request, response);
+	    }
 	} 
 	else if(userPath.equals("/editingView")){
-	    /* TODO: dispatch to editingView */
+	    /* dispatch to editingView */
+	    boolean x = false;
+	    ArticleHelper helper = new helper();
+	    x = helper.checkForArticle(article_id);
+	    
+	    if(x){
+		request.setAttribute("article_id", article_id);
+	        dispatcher = ctx.getRequestDispatcher("/editingView.jsp");
+                dispatcher.forward(request, response);
+	    }
+	    else{
+		dispatcher = ctx.getRequestDispatcher("/error.jsp");
+                dispatcher.forward(request, response);
+	    }
 	}
 	else{
-	    /* dispatch to profile page TODO: attach attributes/search string */
+	    /* dispatch to profile page */
 	    dispatcher = ctx.getRequestDispatcher("/profile.jsp");
             dispatcher.forward(request, response);
 	}
@@ -162,16 +185,45 @@ public class MasterController extends HttpServlet {
         }
         else if(userPath.equals("/adminControls")){
 	    
-	    if(role != -1){ /* TODO: request to add a user */
-			    
+	    if(pass == null){ /* change role */
+		if(pass == confirmpass){
+		    Encrypter.toSha256(pass);
+		    UserHelper helper.addNewUser(newUser);
+		    helper.setUsername(user);
+		    helper.setPassword(pass);
+		    helper.setRole(role);
+		    helper.setImage_path("default.jpg");
+		    helper.addNewUser();
+	    	    dispatcher = ctx.getRequestDispatcher("/adminControls");
+		    dispatcher.forward(request,response);
+		}
 	    }
-	    else{ /* TODO: request to change a user's password */
-
+	    else if(role == -1){ /* request to change a user's password */
+		if(pass == confirmpass){
+		    Encrypter.toSha256(pass);
+		    helper.setUsername(user);
+		    helper.setPassword(pass);
+		    UserHelper helper.changePassword();
+		}
+	    }
+	    else{ /* request to change a user's role */
+		UserHelper helper = new UserHelper();
+                helper.setUsername(user);
+                helper.setRole(role);
+                helper.changeRole();
+		dispatcher = ctx.getRequestDispatcher("/adminControls");
+	 	dispatcher.forward(request, response);
 	    }
         }
         else if(userPath.equals("/modControls")){
-	    /* TODO: request to remove an article */
-	    
+	    /* request to remove an article */
+	    ArticleHelper helper = new helper();
+	    helper.setArticle_id(article_id);
+	    helper.removeArticle();
+	
+	    dispatcher = ctx.getRequestDispatcher("/modControls");
+            dispatcher.forward(request, response);
+
         }
         else if(userPath.equals("/articleView")){
         }

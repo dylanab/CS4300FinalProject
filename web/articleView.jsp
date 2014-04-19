@@ -17,6 +17,13 @@ ${article.categories}
 ${article.author_id}
 ${article.response_id} <%-- might need this? id of the article this is a response to --%>
 
+<c:if test="${article.author_id} == REFERENCE SESSION USER ID HERE" >
+<form action="/editingView" method="get">
+<input type="hidden" name="article_id" value="${article.id}" />
+<input type="submit" value="Edit" />
+</form>
+
+</c:if>
 
 </html>
 
