@@ -46,7 +46,10 @@ public class LoginController extends HttpServlet {
 	    String username = request.getParameter("username");
 	    String password = request.getParameter("password");
 
-	    String hex_pass = Encrypyer.toSha256(password);
+	    username = username.trim();
+	    password = password.trim();
+
+	    String hex_pass = Encrypter.toSha256(password);
 
 	    String db_user = "testuser";
 	    String db_pass = "testpass";
