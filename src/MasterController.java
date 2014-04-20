@@ -48,6 +48,7 @@ public class MasterController extends HttpServlet {
 
 	int role = -1;
 	int article_id = -1;
+	int user_id = -1;
 	
 	HttpSession session = request.getSession();
         String session_user = (String)session.getAttribute("username");
@@ -64,6 +65,9 @@ public class MasterController extends HttpServlet {
         }
 	if( (request.getParameter("article_id")) != null ){
             article_id = Integer.parseInt( request.getParameter("article_id") );
+        }
+	if( (request.getParameter("user_id")) != null ){
+            user_id = Integer.parseInt( request.getParameter("user_id") );
         }
 
         /* trim strings user, pass, confirmpass */
@@ -98,12 +102,12 @@ public class MasterController extends HttpServlet {
 	}//else if
 	else if(userPath.equals("/articleView")){
 	    /* dispatch to articleview */
-	    boolean x = false;
+	    Article article_object;
 	    ArticleHelper helper = new helper();
-	    x = helper.checkForArticle(article_id);	
+	    article_object = helper.checkForArticle(article_id);	
 
-	    if(x){
-		request.setAttribute("article", article_id);
+	    if(article_object != null){
+		request.setAttribute("article_object", article_object);
 	        dispatcher = ctx.getRequestDispatcher("/articleView.jsp");
                 dispatcher.forward(request, response);
 	    }
@@ -114,24 +118,44 @@ public class MasterController extends HttpServlet {
 	} 
 	else if(userPath.equals("/editingView")){
 	    /* dispatch to editingView */
-	    boolean x = false;
-	    ArticleHelper helper = new helper();
-	    x = helper.checkForArticle(article_id);
-	    
-	    if(x){
-		request.setAttribute("article_id", article_id);
-	        dispatcher = ctx.getRequestDispatcher("/editingView.jsp");
+	    if(article_id == -1){ /* compose new article */
+		Article article_object = new article();
+		request.setAttribute("article_object", article_object);
+		dispatcher = ctx.getRequestDispatcher("/editingView.jsp");
                 dispatcher.forward(request, response);
 	    }
-	    else{
-		dispatcher = ctx.getRequestDispatcher("/error.jsp");
-                dispatcher.forward(request, response);
+	    else{ /* edit existing article */
+	        Article article_object;
+	        ArticleHelper helper = new helper();
+	        article_object = helper.checkForArticle(article_id);
+	    
+	        if(article_object != null){
+	    	    request.setAttribute("article_object", article_object);
+	            dispatcher = ctx.getRequestDispatcher("/editingView.jsp");
+                    dispatcher.forward(request, response);
+	        }
+	        else{
+		    dispatcher = ctx.getRequestDispatcher("/error.jsp");
+                    dispatcher.forward(request, response);
+	        }
 	    }
 	}
 	else{
 	    /* dispatch to profile page */
-	    dispatcher = ctx.getRequestDispatcher("/profile.jsp");
-            dispatcher.forward(request, response);
+	    User user_object;
+	    UserHelper helper = new helper();
+	    user_object = helper.checkForUser(user_id);
+
+	   if(user_object != null){
+	       request.setAttriubte("user_object", user_object);
+	       dispatcher = ctx.getRequestDispatcher("/profile.jsp");
+               dispatcher.forward(request, response);
+	   }
+	   else{
+	       dispatcher = ctx.getRequestDispatcher("/error.jsp");
+               dispatcher.forward(request, response);
+	   }
+   
 	}
 
 

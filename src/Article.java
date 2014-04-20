@@ -44,6 +44,18 @@ Article(int id, User user, String title, String image_path, String categories, i
         this.response_id = response_id;
 } //constructor without text
 
+Article(){
+   this.id = null;
+   this.user = null;
+   this.title = null;
+   this.text = null;
+   this.image_path = null;
+   this.categories = null;
+   this.hits = null;
+   this.author_id = null;
+   this.response_id = null;
+} //no arg constructor
+
 
 
 

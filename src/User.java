@@ -32,6 +32,6 @@ public String getName(){ return name; }
 public int getRole(){ return role; }
 public String getPassword(){ return password; }
 public String getImage_path(){ return image_path; }
-public void setId(int uid) { this.id = uid; }
+
 
 }//class
