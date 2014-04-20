@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" isELIgnored="false"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -10,6 +10,7 @@
 <%-- Not sure how this will work with the WYSIWYG editor yet
      and i'm hungry and wanna go eat --%>
 
+${article_object.title}
 
 </html>
 
