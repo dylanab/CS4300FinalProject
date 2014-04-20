@@ -2,7 +2,7 @@
 #	this SQL file creates the schema for the Politalk database
 #
 
-use politalk
+use politalk;
 
 DROP TABLE IF EXISTS Users;
 
@@ -11,7 +11,7 @@ CREATE TABLE Users (
 	Username VARCHAR(50),
 	Password VARCHAR(64),
 	ProfilePicPath VARCHAR(200),
-	Role INT,
+	Role INT
 );
 
 DROP TABLE IF EXISTS Articles;
@@ -21,10 +21,10 @@ CREATE TABLE Articles (
 	Title VARCHAR(50),
 	Catagories VARCHAR(200),
 	AuthorID INT,
+	FOREIGN KEY (AuthorID) REFERENCES Users(Uid),
 	Hits INT,
 	ImageFilePath VARCHAR(200),
 	ArticleText MEDIUMTEXT,
-	Response INT,
-	FOREIGN KEY(AuthorID) references Users(Uid),
-	FOREIGN KEY(Response) references Articles(Id)
+	Response INT UNSIGNED,
+	FOREIGN KEY (Response) REFERENCES Articles(Id)
 );
