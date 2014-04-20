@@ -5,7 +5,11 @@ import java.sql.*;
 public class UserHelper {
 
 	protected Connection conn = null;
-	protected Statement statement = null;
+	//protected Statement statement = null;
+	protected PreparedStatement validateUser;
+	protected PreparedStatement addUser;
+	protected PreparedStatement selectUID;
+	protected PreparedStatement changeUserPW;
 	
 	/**
 	 * Create the driver, connection, and prepared statement for the database
@@ -20,10 +24,14 @@ public class UserHelper {
 			if(conn == null){
 				throw new Exception("Unable to connect to database");
 			}
-			statement = conn.createStatement();
-			if(statement == null){
-				throw new Exception("Unable to create a valid statement for the database");
-			}
+			//statement = conn.createStatement();
+			//if(statement == null){
+				//throw new Exception("Unable to create a valid statement for the database");
+			//}
+			validateUser = conn.prepareStatement("Select Uid, ProfilePicPath, Role from Users where Username =?, Password =?");
+			addUser = conn.prepareStatement("Insert into Users (Username, Password, ProfilePicPath, Role ) vaules (?, ?, ?, ? )");
+			selectUID = conn.prepareStatement("Select Uid from Users where Username =?");
+			changeUserPW = conn.prepareStatement("UPDATE Users SET Password=? WHERE Uid=?");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -35,22 +43,24 @@ public class UserHelper {
 	  * @return
 	  */
 	public User validate(String name, String password) {
-		String query = "Select Uid, ProfilePicPath, Role from Users where Username = " + name + ", Password = " + password;
+		//String query = "Select Uid, ProfilePicPath, Role from Users where Username = " + name + ", Password = " + password;
 		int uid = 0;
 		String path = null;
 		int role = 0;
 		User u = null;
+		ResultSet r;
 		try {
-			if(statement.execute(query)) {
-				ResultSet r = statement.getResultSet();
-				
+			//if(statement.execute(query)) {
+				//ResultSet r = statement.getResultSet();
+				validateUser.setString(1, name);
+				validateUser.setString(2, password);
+				r = validateUser.executeQuery();
 				while(r.next()) { //this resultSet should only have one result so the loop should only go once
 					uid = r.getInt(1);
 					path = r.getString(2);
 					role = r.getInt(3);
 				}
 				u = new User(uid, name, role, password, path); //add parameters
-			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,19 +76,27 @@ public class UserHelper {
 	public User addNewUser(User newUser) {
 		int updateReturn = 0;
 		User toReturn = newUser;
+		ResultSet r;
 		if(newUser != null) { //make sure parameter is not null
-			String query = "Insert into Users (Username, Password, ProfilePicPath, Role ) vaules ( " +
-					"'" + newUser.getName() + "', " +
-					"'" + newUser.getPassword() + "', " +
-					"'" + newUser.getImage_path() + "', " +
-					"'" + newUser.getRole() + "' )";
+			//String query = "Insert into Users (Username, Password, ProfilePicPath, Role ) vaules ( " +
+				//	"'" + newUser.getName() + "', " +
+					//"'" + newUser.getPassword() + "', " +
+					//"'" + newUser.getImage_path() + "', " +
+					//"'" + newUser.getRole() + "' )";
 			try {
-				updateReturn = statement.executeUpdate(query);
+				addUser.setString(1, newUser.getName());
+				addUser.setString(2, newUser.getPassword());
+				addUser.setString(3, newUser.getImage_path());
+				addUser.setInt(4, newUser.getRole());
+				updateReturn = addUser.executeUpdate();
+				//updateReturn = statement.executeUpdate(query);
 				if(updateReturn > 0){
-					query = "Select Uid from Users where Username = " + newUser.getName();
+					//query = "Select Uid from Users where Username = " + newUser.getName();
 					int uId = 0;
-					if(statement.execute(query)) {
-						ResultSet r = statement.getResultSet();
+					selectUID.setString(1, newUser.getName());
+					r = selectUID.executeQuery();
+					while(r.next()) {
+						//ResultSet r = statement.getResultSet();
 						uId = r.getInt(1);
 						toReturn.setId(uId);
 					}
@@ -100,9 +118,12 @@ public class UserHelper {
 	public User changePW(User user, String nPassword){
 		User u = null;
 		int updateReturn =0;
-		String query = "UPDATE Users SET Password='"+nPassword+"' WHERE Uid='"+user.getId()+"'";
+		//String query = "UPDATE Users SET Password='"+nPassword+"' WHERE Uid='"+user.getId()+"'";
 		try{
-			updateReturn = statement.executeUpdate(query);
+			changeUserPW.setString(1, nPassword);
+			changeUserPW.setInt(2, user.getId());
+			updateReturn = changeUserPW.executeUpdate();
+			//updateReturn = statement.executeUpdate(query);
 			if(updateReturn>0){
 				u = new User(user.getId(), user.getName(), user.getRole(), nPassword, user.getImage_path());
 			}
