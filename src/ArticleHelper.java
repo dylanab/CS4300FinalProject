@@ -13,6 +13,7 @@ public class ArticleHelper {
 	protected PreparedStatement getArticle;
 	protected PreparedStatement addArticle;
 	protected PreparedStatement editArticle;
+	protected PreparedStatement searchArticles;
 	//protected PreparedStatement getLastID;
 
 	/**
@@ -41,6 +42,7 @@ public class ArticleHelper {
 			addArticle = conn.prepareStatement("Insert into Articles ( Title, Catagories, AuthorID, Hits, ImageFilePath, ArticleText, Response ) values (?, ?, ?, 0, ?, ?, null");
 			editArticle = conn.prepareStatement("UPDATE Articles SET Title=?, Catagories=?, ImageFilePath=?, ArticleText=? WHERE Id=?");
 			//getLastID = conn.prepareStatement("Select ");
+			searchArticles = conn.prepareStatement("Select a.Id, a.Catagories, u.Uid, a.Hits, a.ImageFilePath, a.ArticleText, a.Response, u.Username, u.Password, u.ProfilePicPath, u.Role, a.Title from Articles a, Users u Where a.Title Like ?");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -225,5 +227,56 @@ public class ArticleHelper {
 			e.printStackTrace();
 		}
 		return aId;
+	}
+	
+	public ArrayList<Article> articleSearchOfUser(){
+		ArrayList<Article> articlesWithTitle = new ArrayList<Article>();
+		int a_id = 0;
+		String a_catagories = null;
+		int u_id = 0;
+		int a_hits = 0;
+		String a_imageFilePath = null;
+		String a_articleText = null;
+		int a_response = 0;
+		String u_username = null;
+		String u_password = null;
+		int u_role = 0;
+		String a_title = null;
+		String u_imagePath = null;
+		ResultSet r;
+		try{
+			r = searchArticles.executeQuery();
+			while(r.next()){
+				a_id = r.getInt(1);
+				a_catagories = r.getString(2);
+				u_id = r.getInt(3);
+				a_hits = r.getInt(4);
+				a_imageFilePath = r.getString(5);
+				a_articleText = r.getString(6);
+				a_response = r.getInt(7);
+				u_username = r.getString(8);
+				u_password = r.getString(9);
+				u_imagePath = r.getString(10);
+				u_role = r.getInt(11);
+				a_title = r.getString(12);
+				Article articleFromDB = new Article(a_id, new User(u_id, u_username, u_role, u_password, u_imagePath),a_title, a_articleText, a_imageFilePath, a_catagories, a_hits, u_id, a_response);
+				articlesWithTitle.add(articleFromDB);
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return articlesWithTitle;
+	}
+	
+	/**
+	 * Set the searchstring in the PreparedStatements
+	 * @param searchstring
+	 */
+	public void setSearchString(String searchstring){
+		try{
+			searchArticles.setString(1, searchstring.trim());
+		} catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }
