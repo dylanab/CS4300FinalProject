@@ -37,12 +37,17 @@ public class ArticleHelper {
 				//throw new Exception("Unable to create a valid statement for the database");
 			//}
 			//initialize PreparedStatements
-			getAllArticles = conn.prepareStatement("Select a.Id, a.Catagories, u.Uid, a.Hits, a.ImageFilePath, a.ArticleText, a.Response, u.Username, u.Password, u.ProfilePicPath, u.Role, a.Title from Articles a, Users u");
-			getArticle = conn.prepareStatement("Select a.Catagories, u.Uid, a.Hits, a.ImageFilePath, a.ArticleText, a.Response, u.Username, u.Password, u.ProfilePicPath, u.Role, a.Title from Articles a, Users u Where a.id=?");
-			addArticle = conn.prepareStatement("Insert into Articles ( Title, Catagories, AuthorID, Hits, ImageFilePath, ArticleText, Response ) values (?, ?, ?, 0, ?, ?, null");
-			editArticle = conn.prepareStatement("UPDATE Articles SET Title=?, Catagories=?, ImageFilePath=?, ArticleText=? WHERE Id=?");
+			getAllArticles = conn.prepareStatement(
+			    "select * from Articles");
+			getArticle = conn.prepareStatement(
+			    "select * from Articles where id=?");
+			addArticle = conn.prepareStatement(
+			    "Insert into Articles ( Title, Catagories, AuthorID, Hits, ImageFilePath, ArticleText) values (?, ?, ?, 0, ?, ?");
+			editArticle = conn.prepareStatement(
+			    "UPDATE Articles SET Title=?, Catagories=?, ImageFilePath=?, ArticleText=? WHERE Id=?");
 			//getLastID = conn.prepareStatement("Select ");
-			searchArticles = conn.prepareStatement("Select a.Id, a.Catagories, u.Uid, a.Hits, a.ImageFilePath, a.ArticleText, a.Response, u.Username, u.Password, u.ProfilePicPath, u.Role, a.Title from Articles a, Users u Where a.Title Like ?");
+			searchArticles = conn.prepareStatement(
+			    "Select * from Articles where AuthorID = ? AND Title Like %?%");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -274,9 +279,20 @@ public class ArticleHelper {
 	 */
 	public void setSearchString(String searchstring){
 		try{
-			searchArticles.setString(1, searchstring.trim());
+			searchArticles.setString(2, searchstring.trim());
 		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
+
+	public void setAuthor_id(int x){
+	    try{
+		searchArticles.setInt(1, x);
+	    }
+	    catch(SQLException sqle){
+		sqle.getMessage();
+	    }
+
+	}
+
 }
