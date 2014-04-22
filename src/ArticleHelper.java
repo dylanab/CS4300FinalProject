@@ -14,6 +14,7 @@ public class ArticleHelper {
 	protected PreparedStatement addArticle;
 	protected PreparedStatement editArticle;
 	protected PreparedStatement searchArticles;
+	protected PreparedStatement removeArticle;
 	//protected PreparedStatement getLastID;
 
 	/**
@@ -48,6 +49,7 @@ public class ArticleHelper {
 			//getLastID = conn.prepareStatement("Select ");
 			searchArticles = conn.prepareStatement(
 			    "Select * from Articles where AuthorID = ? AND Title Like %?%");
+			removeArticle = conn.prepareStatement("DELETE from Articles WHERE Id=?");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -67,11 +69,11 @@ public class ArticleHelper {
 		String a_imageFilePath = null;
 		String a_articleText = null;
 		int a_response = 0;
-		String u_username = null;
-		String u_password = null;
-		int u_role = 0;
+		//String u_username = null;
+		//String u_password = null;
+		//int u_role = 0;
 		String a_title = null;
-		String u_imagePath = null;
+		//String u_imagePath = null;
 		ResultSet rs;
 		
 		try{
@@ -79,20 +81,21 @@ public class ArticleHelper {
 				//ResultSet r = statement.getResultSet();
 				rs = getAllArticles.executeQuery();
 				while(rs.next()) {
-					a_id = rs.getInt(1);
-					a_catagories = rs.getString(2);
-					u_id = rs.getInt(3);
-					a_hits = rs.getInt(4);
-					a_imageFilePath = rs.getString(5);
-					a_articleText = rs.getString(6);
-					a_response = rs.getInt(7);
-					u_username = rs.getString(8);
-					u_password = rs.getString(9);
-					u_imagePath = rs.getString(10);
-					u_role = rs.getInt(11);
-					a_title = rs.getString(12);
+					a_id = rs.getInt("Id");
+					a_catagories = rs.getString("Catagories");
+					u_id = rs.getInt("AuthorID");
+					a_hits = rs.getInt("Hits");
+					a_imageFilePath = rs.getString("ImageFilePath");
+					a_articleText = rs.getString("ArticleText");
+					a_response = rs.getInt("Response");
+					//u_username = rs.getString(8);
+					//u_password = rs.getString(9);
+					//u_imagePath = rs.getString(10);
+					//u_role = rs.getInt(11);
+					a_title = rs.getString("Title");
 					//List<String> catagories_list = Arrays.asList(a_catagories.split(", "));
-					Article articleFromDB = new Article(a_id, new User(u_id, u_username, u_role, u_password, u_imagePath),a_title, a_articleText, a_imageFilePath, a_catagories, a_hits, u_id, a_response);
+					Article articleFromDB = new Article(a_id, a_title, a_articleText, a_imageFilePath, a_catagories, a_hits, u_id, a_response);
+					//Article(int id, String title, String text, String image_path, String categories, int hits, int author_id, int response_id){
 					//Article articleFromDB = new Article(a_id, new User(u_id, u_username, u_password, u_role), a_title, a_articleText, a_imageFilePath, catagories_list);
 					//commented out articleFromDB is for a constructor that takes a list of catagories as opposed to a string
 					//maybe create user depending on how parameters for article are defined
@@ -113,7 +116,7 @@ public class ArticleHelper {
 	 * @param id
 	 * @return
 	 */
-	public Article getArticle(int id){
+	public Article checkForArticle(int id){
 		try{
 			getArticle.setInt(1, id);
 		}catch (Exception e){
@@ -127,29 +130,29 @@ public class ArticleHelper {
 		String a_imageFilePath = null;
 		String a_articleText = null;
 		int a_response = 0;
-		String u_username = null;
-		String u_password = null;
-		int u_role = 0;
+		//String u_username = null;
+		//String u_password = null;
+		//int u_role = 0;
 		String a_title = null;
-		String u_imagePath = null;
+		//String u_imagePath = null;
 		ResultSet r;
 		try{
 			//if(statement.execute(query)){
 				//ResultSet r = statement.getResultSet();
 			r = getArticle.executeQuery();	
 			while(r.next()){
-					a_catagories = r.getString(1);
-					u_id = r.getInt(2);
-					a_hits = r.getInt(3);
-					a_imageFilePath = r.getString(4);
-					a_articleText = r.getString(5);
-					a_response = r.getInt(6);
-					u_username = r.getString(7);
-					u_password = r.getString(8);
-					u_imagePath = r.getString(9);
-					u_role = r.getInt(10);
-					a_title = r.getString(11);
-					a = new Article(id, new User(u_id, u_username, u_role, u_password, u_imagePath),a_title, a_articleText, a_imageFilePath, a_catagories, a_hits, u_id, a_response);
+					a_catagories = r.getString("Catagories");
+					u_id = r.getInt("AuthorID");
+					a_hits = r.getInt("Hits");
+					a_imageFilePath = r.getString("ImageFilePath");
+					a_articleText = r.getString("ArticleText");
+					a_response = r.getInt("Response");
+					//u_username = r.getString(7);
+					//u_password = r.getString(8);
+					//u_imagePath = r.getString(9);
+					//u_role = r.getInt(10);
+					a_title = r.getString("Title");
+					a = new Article(id, a_title, a_articleText, a_imageFilePath, a_catagories, a_hits, u_id, a_response);//add parameters
 				}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -243,34 +246,45 @@ public class ArticleHelper {
 		String a_imageFilePath = null;
 		String a_articleText = null;
 		int a_response = 0;
-		String u_username = null;
-		String u_password = null;
-		int u_role = 0;
+		//String u_username = null;
+		//String u_password = null;
+		//int u_role = 0;
 		String a_title = null;
-		String u_imagePath = null;
+		//String u_imagePath = null;
 		ResultSet r;
 		try{
 			r = searchArticles.executeQuery();
 			while(r.next()){
-				a_id = r.getInt(1);
-				a_catagories = r.getString(2);
-				u_id = r.getInt(3);
-				a_hits = r.getInt(4);
-				a_imageFilePath = r.getString(5);
-				a_articleText = r.getString(6);
-				a_response = r.getInt(7);
-				u_username = r.getString(8);
-				u_password = r.getString(9);
-				u_imagePath = r.getString(10);
-				u_role = r.getInt(11);
-				a_title = r.getString(12);
-				Article articleFromDB = new Article(a_id, new User(u_id, u_username, u_role, u_password, u_imagePath),a_title, a_articleText, a_imageFilePath, a_catagories, a_hits, u_id, a_response);
+				a_id = r.getInt("Id");
+				a_catagories = r.getString("Catagories");
+				u_id = r.getInt("AuthorID");
+				a_hits = r.getInt("Hits");
+				a_imageFilePath = r.getString("ImageFilePath");
+				a_articleText = r.getString("ArticleText");
+				a_response = r.getInt("Response");
+				//u_username = r.getString(8);
+				//u_password = r.getString(9);
+				//u_imagePath = r.getString(10);
+				//u_role = r.getInt(11);
+				a_title = r.getString("Title");
+				Article articleFromDB = new Article(a_id, a_title, a_articleText, a_imageFilePath, a_catagories, a_hits, u_id, a_response);
 				articlesWithTitle.add(articleFromDB);
 			}
 		} catch(Exception e){
 			e.printStackTrace();
 		}
 		return articlesWithTitle;
+	}
+	
+	/**
+	 * Remove an article from the database; the article's id is already set
+	 */
+	public void removeArticle(){
+		try{
+			removeArticle.execute();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -293,6 +307,14 @@ public class ArticleHelper {
 		sqle.getMessage();
 	    }
 
+	}
+	
+	public void setArticle_id(int id){
+		try{
+			removeArticle.setInt(1, id);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }
