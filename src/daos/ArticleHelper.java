@@ -1,8 +1,8 @@
-package pt;
+package daos;
 
 import java.sql.*;
 import java.util.ArrayList;
-
+import dtos.*;
 
 
 public class ArticleHelper {

@@ -1,4 +1,4 @@
-package pt;
+package controllers;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,6 +10,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import security.*;
+import daos.*;
+import dtos.*;
 
 /**
  * Servlet implementation class MasterController

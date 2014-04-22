@@ -1,7 +1,7 @@
-package pt;
+package daos;
 
 import java.sql.*;
-
+import dtos.*;
 public class UserHelper {
 
 	protected Connection conn = null;

@@ -1,10 +1,12 @@
-package pt;
+package daotesters;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
+import daos.*;
+import dtos.*;
 
 public class ArticleHelperTest {
 
