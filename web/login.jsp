@@ -4,6 +4,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
+<%-- 
+Authors: Dylan Bowne, Christopher Ghyzel
+Description: JSP page for user logins
+Dylan: Page logic & initial html
+Chris: CSS and HTML layout 
+--%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Login</title>
