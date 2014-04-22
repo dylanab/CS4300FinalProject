@@ -7,7 +7,6 @@ package pt;
 public class Article {
 
 private int id;
-private User user;
 private String title;
 private String text;
 private String image_path;
@@ -17,9 +16,8 @@ private int author_id;
 private int response_id;
 
 
-Article(int id, User user, String title, String text, String image_path, String categories, int hits, int author_id, int response_id){
+Article(int id, String title, String text, String image_path, String categories, int hits, int author_id, int response_id){
 	this.id = id;
-	this.user = user;
 	this.title = title;
 	this.text = text;
 	this.image_path = image_path;
@@ -32,9 +30,9 @@ Article(int id, User user, String title, String text, String image_path, String 
 /**
  * Does not pass initialize text field
  */
-Article(int id, User user, String title, String image_path, String categories, int hits, int author_id, int response_id){
+Article(int id, String title, String image_path, String categories, int hits, int author_id, int response_id){
         this.id = id;
-        this.user = user;
+   
         this.title = title;
         
         this.image_path = image_path;
@@ -46,7 +44,6 @@ Article(int id, User user, String title, String image_path, String categories, i
 
 Article(){
    this.id = null;
-   this.user = null;
    this.title = null;
    this.text = null;
    this.image_path = null;
@@ -60,7 +57,7 @@ Article(){
 
 
 public int getId(){ return id; }
-public User getUser(){ return user; }
+
 public String getTitle(){ return title; }
 public String getText(){ return text; }
 public String getImage_path(){ return image_path; }
@@ -70,4 +67,4 @@ public int getAuthor_id(){ return author_id; }
 public int getResponse_id(){ return response_id; }
 
 
-} //categories
+} //class
