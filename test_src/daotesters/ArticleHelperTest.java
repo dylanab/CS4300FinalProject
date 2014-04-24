@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.ArrayList;
+
 import daos.*;
 import dtos.*;
 
@@ -16,7 +18,8 @@ public class ArticleHelperTest {
 
     @Test
 	public void testConstructor() {
-	ArticleHelper instance = new ArticleHelper();
+	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "username", "pw");
+	assertNotNull("Constructor not null", instance);
 	//assertNotNull("",);
 
     }
@@ -26,17 +29,13 @@ public class ArticleHelperTest {
      * Tests that adding a user to the database works properly
      */
     public void submitArticleTest() throws Exception{
-	ArticleHelper instance = new ArticleHelper();
+	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "username", "pw");
 	ArrayList<Article> articleList = new ArrayList<Article>();
+	
+	Article article1 = new Article(1, "Article 1", "lolololol", "path", "something, something else", 0, 1, 2);
+	instance.addArticleToDB(article1);
 
-	instance.setAuthorId(1);
-	instance.setCatagories("something, something else");
-	instance.setImagePath("path");
-	instance.setArticleText("lolololol");
-	instance.setArticleResponse(2);
-	instance.addArticle();
-
-	articleList = instance.getArticleList();
+	articleList = instance.getArticles();
 
 	assertEquals("length after one article insert", 1, articleList.size());
 	assertEquals("author id", 1, articleList.get(0).getAuthorId());
@@ -50,27 +49,21 @@ public class ArticleHelperTest {
     /**
      * Test for editing an article's text
      */
-    public void updateArticleText() throws Exception(){}
+    public void updateArticleText() throws Exception(){
+    	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "username", "pw");
+    	ArrayList<Article> articleList = new ArrayList<Article>();
+    	
+    	Article article1 = new Article(1, "Article 1", "lolololol", "path", "something, something else", 0, 1, 2);
+    	instance.addArticleToDB(article1);
+    	
+    	article1 = new Article(1, "Article 1 edited", "lolololol", "path", "something, something else", 0, 1, 2);
+    	instance.editArticle(article1);
+    	
+    	articleList = instance.getArticles();
+    	assertEquals("new article name", "Article 1 edited", articleList.get(0).getTitle());
+    }
 
-    /**
-     *Test for updating an article's image
-     */
-    public void updateArticleImage() throws Exception(){}
 
-    /**
-     *Test removing an article
-     */
-    public void removeArticle() throws Exception() {}
-
-    /**
-     *Tests adding and removing catagories from articles
-     */ 
-    public void addRemoveCatagory() throws Exception() {}
-
-    /**
-     *Tests adding and removing responses from articles
-     */
-    public void addRemoveResponse() throws Exeception() {}
 
 
 }//class
