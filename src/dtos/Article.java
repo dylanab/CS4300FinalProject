@@ -1,4 +1,4 @@
-package pt;
+package dtos;
 
 
 /**
@@ -16,7 +16,7 @@ private int author_id;
 private int response_id;
 
 
-Article(int id, String title, String text, String image_path, String categories, int hits, int author_id, int response_id){
+public Article(int id, String title, String text, String image_path, String categories, int hits, int author_id, int response_id){
 	this.id = id;
 	this.title = title;
 	this.text = text;
@@ -30,7 +30,7 @@ Article(int id, String title, String text, String image_path, String categories,
 /**
  * Does not pass initialize text field
  */
-Article(int id, String title, String image_path, String categories, int hits, int author_id, int response_id){
+public Article(int id, String title, String image_path, String categories, int hits, int author_id, int response_id){
         this.id = id;
    
         this.title = title;
@@ -42,15 +42,15 @@ Article(int id, String title, String image_path, String categories, int hits, in
         this.response_id = response_id;
 } //constructor without text
 
-Article(){
-   this.id = null;
+public Article(){
+   this.id = 0;
    this.title = null;
    this.text = null;
    this.image_path = null;
    this.categories = null;
-   this.hits = null;
-   this.author_id = null;
-   this.response_id = null;
+   this.hits = 0;
+   this.author_id = 0;
+   this.response_id = 0;
 } //no arg constructor
 
 
