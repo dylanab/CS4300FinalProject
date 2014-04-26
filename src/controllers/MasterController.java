@@ -100,8 +100,9 @@ public class MasterController extends HttpServlet {
 	else if(userPath.equals("/articleView")){
 	    /* dispatch to articleview */
 	    Article article_object;
-	    ArticleHelper helper = new helper();
-	    article_object = helper.checkForArticle(article_id);	
+	    ArticleHelper helper = new ArticleHelper();
+	    helper.setArticle_id;
+	    article_object = helper.getArticle();	
 
 	    if(article_object != null){
 		request.setAttribute("article_object", article_object);
@@ -116,15 +117,18 @@ public class MasterController extends HttpServlet {
 	else if(userPath.equals("/editorView")){
 	    /* dispatch to editorView */
 	    if(article_id == -1){ /* compose new article */
-		Article article_object = new article();
+		ArticleHelper helper = new ArticleHelper();
+		Article article_object = new article(/* TODO: info about article */);
+		helper.addArticleToDB(article_object);
 		request.setAttribute("article_object", article_object);
-		dispatcher = ctx.getRequestDispatcher("/editorView.jsp");
+		dispatcher = ctx.getRequestDispatcher("/articleView.jsp");
                 dispatcher.forward(request, response);
 	    }
 	    else{ /* edit existing article */
 	        Article article_object;
-	        ArticleHelper helper = new helper();
-	        article_object = helper.checkForArticle(article_id);
+	        ArticleHelper helper = new ArticleHelper();
+		helper.setArticle_id(article_id);
+	        article_object = helper.getArticle();
 	    
 	        if(article_object != null){
 	    	    request.setAttribute("article_object", article_object);
@@ -140,7 +144,7 @@ public class MasterController extends HttpServlet {
 	else{
 	    /* dispatch to profile page */
 	    User user_object;
-	    UserHelper helper = new helper();
+	    UserHelper helper = new UserHelper();
 	    user_object = helper.getUser(user_id);
 
 	   if(user_object != null){
@@ -214,7 +218,7 @@ public class MasterController extends HttpServlet {
 	    if(pass == null){ /* add a new user */
 		if(pass == confirmpass){
 		    Encrypter.toSha256(pass);
-		    UserHelper helper = new helper();
+		    UserHelper helper = new Userhelper();
 		    helper.setUsername(user);
 		    helper.setPassword(pass);
 		    helper.setRole(role);
@@ -226,6 +230,7 @@ public class MasterController extends HttpServlet {
 	    }
 	    else if(role == -1){ /* request to change a user's password */
 		if(pass == confirmpass){
+		    UserHelper helper = new UserHelper();
 		    Encrypter.toSha256(pass);
 		    helper.setUsername(user);
 		    helper.setPassword(pass);
@@ -243,7 +248,7 @@ public class MasterController extends HttpServlet {
         }
         else if(userPath.equals("/modControls")){
 	    /* request to remove an article */
-	    ArticleHelper helper = new helper();
+	    ArticleHelper helper = new ArticleHelper();
 	    helper.setArticle_id(article_id);
 	    helper.removeArticle();
 	
