@@ -26,6 +26,13 @@ public User(String name, int role, String password, String image_path){
         this.image_path = image_path;
 }//constructor
 
+public User() {
+    this.name = null;
+    this.role = 0;
+    this.password = null;
+    this.image_path = null;
+
+}//no arg constructor
 
 public int getId(){ return id; }
 public String getName(){ return name; }
