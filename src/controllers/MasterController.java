@@ -10,20 +10,18 @@ import javax.servlet.ServletContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import security.*;
-import daos.*;
-import dtos.*;
 
 /**
  * Servlet implementation class MasterController
+ * Author: Luke Grantham
  */
 @WebServlet(
-	description = "The ",
+	description = "Handles all urls except from login ",
 	urlPatterns = {
 	    "/adminControls",
 	    "/profile",
 	    "/modControls",
-	    "/editingView",
+	    "/editorView",
 	    "/index",
 	    "/articleView"
 	  })
@@ -38,13 +36,9 @@ public class MasterController extends HttpServlet {
     }
 
 	/**
-	 * Non-idempotent actions: send articleList to mainpage
-	 * 			   send a single article to singleArticle
-	 * 			   dispatch to articleView
-	 * 			   dispatch to mainView
-	 * 			   dispatch to profile
-	 *
-	 * 			   String userPath = request.getServletPath(); 
+	 * Non-idempotent actions: dispatch to all the pages except login
+	 * 			   attach article to singleArticle/editorView dispatch
+	 * 			   attach user object dispatch
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     try{
@@ -119,12 +113,12 @@ public class MasterController extends HttpServlet {
                 dispatcher.forward(request, response);
 	    }
 	} 
-	else if(userPath.equals("/editingView")){
-	    /* dispatch to editingView */
+	else if(userPath.equals("/editorView")){
+	    /* dispatch to editorView */
 	    if(article_id == -1){ /* compose new article */
 		Article article_object = new article();
 		request.setAttribute("article_object", article_object);
-		dispatcher = ctx.getRequestDispatcher("/editingView.jsp");
+		dispatcher = ctx.getRequestDispatcher("/editorView.jsp");
                 dispatcher.forward(request, response);
 	    }
 	    else{ /* edit existing article */
@@ -134,7 +128,7 @@ public class MasterController extends HttpServlet {
 	    
 	        if(article_object != null){
 	    	    request.setAttribute("article_object", article_object);
-	            dispatcher = ctx.getRequestDispatcher("/editingView.jsp");
+	            dispatcher = ctx.getRequestDispatcher("/editorView.jsp");
                     dispatcher.forward(request, response);
 	        }
 	        else{
@@ -147,7 +141,7 @@ public class MasterController extends HttpServlet {
 	    /* dispatch to profile page */
 	    User user_object;
 	    UserHelper helper = new helper();
-	    user_object = helper.checkForUser(user_id);
+	    user_object = helper.getUser(user_id);
 
 	   if(user_object != null){
 	       request.setAttriubte("user_object", user_object);
@@ -170,6 +164,11 @@ public class MasterController extends HttpServlet {
 
 	/**
 	 * Idempotent actions: remove an article
+	 * 		       add new user
+	 * 		       change user password
+	 * 		       change user role
+	 * 		       edit article
+	 *
 	 * 		       
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -212,10 +211,10 @@ public class MasterController extends HttpServlet {
         }
         else if(userPath.equals("/adminControls")){
 	    
-	    if(pass == null){ /* change role */
+	    if(pass == null){ /* add a new user */
 		if(pass == confirmpass){
 		    Encrypter.toSha256(pass);
-		    UserHelper helper.addNewUser(newUser);
+		    UserHelper helper = new helper();
 		    helper.setUsername(user);
 		    helper.setPassword(pass);
 		    helper.setRole(role);
@@ -254,7 +253,7 @@ public class MasterController extends HttpServlet {
         }
         else if(userPath.equals("/articleView")){
         }
-        else if(userPath.equals("/editingView")){
+        else if(userPath.equals("/editorView")){
         }
         else{//profile
         }
@@ -279,4 +278,3 @@ public class MasterController extends HttpServlet {
 
 
 
-}//class
