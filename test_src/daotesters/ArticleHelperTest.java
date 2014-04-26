@@ -52,6 +52,7 @@ public class ArticleHelperTest {
     /**
      * Tests that adding a user to the database works properly
      */
+    @Test
     public void submitArticleTest() throws Exception{
 	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	ArrayList<Article> articleList = new ArrayList<Article>();
@@ -73,6 +74,7 @@ public class ArticleHelperTest {
     /**
      * Test for editing an article's text
      */
+    @Test
     public void updateArticleText() throws Exception(){
     	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
     	ArrayList<Article> articleList = new ArrayList<Article>();

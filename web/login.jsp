@@ -1,29 +1,115 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-<%-- 
-Authors: Dylan Bowne, Christopher Ghyzel
-Description: JSP page for user logins
-Dylan: Page logic & initial html
-Chris: CSS and HTML layout 
---%>
+<!--  
+  Authors: Dylan Bowne, Christopher Ghyzel
+  Description: JSP page for user logins
+  Dylan: Page logic & initial html
+  Chris: CSS and HTML layout
+-->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Login</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Login - PoliTalk</title>
 <style>
+/* CSS by Christopher Ghyzel */
+body {
+	background-color: #1240AB;
+	color: #A60400;
+	position: relative;
+	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+	font-size: 20px;
+	color: #A60400;
+}
+
+input {
+	height: 20px;
+}
+
+#error {
+	color: red;
+	width: 100%;
+	max-width: 600px;
+	position: absolute;
+	bottom: 80px;
+	font-weight: bold;
+}
+
+#error div {
+	position: relative;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+
+.mainBody {
+	-moz-box-shadow: inset 0px 1px 0px 0px #1240AB;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #1240AB;
+	-webkit-border-top-left-radius: 20px;
+	-moz-border-radius-topleft: 20px;
+	border-top-left-radius: 20px;
+	-webkit-border-top-right-radius: 20px;
+	-moz-border-radius-topright: 20px;
+	border-top-right-radius: 20px;
+	-webkit-border-bottom-right-radius: 20px;
+	-moz-border-radius-bottomright: 20px;
+	border-bottom-right-radius: 20px;
+	-webkit-border-bottom-left-radius: 20px;
+	-moz-border-radius-bottomleft: 20px;
+	position: relative;
+	margin: auto;
+	min-width: 400px;
+	max-width: 600px;
+	min-height: 400px;
+	max-height:600px;
+	background-color: white;
+}
+
+#loginForm {
+	position: absolute;
+	text-align: center;
+	top: 50px;
+	width: 100%;
+	top: 50px;
+}
+
+#loginForm table {
+	margin: auto;
+}
+
+#loginForm table tr td {
+	min-width: 120px;
+}
+
+#portal {
+	position: absolute;
+	text-align: center;
+	bottom: 10px;
+	width: 100%;
+}
+
+a {
+	color: #1240AB;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #1240AB;
+	text-decoration: underline;
+}
+
 .loginButton {
 	-moz-box-shadow: inset 0px 1px 0px 0px #f5978e;
 	-webkit-box-shadow: inset 0px 1px 0px 0px #f5978e;
 	box-shadow: inset 0px 1px 0px 0px #f5978e;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d4271b
-		), color-stop(1, #ab2316));
-	background: -moz-linear-gradient(center top, #d4271b 5%, #ab2316 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d4271b',
-		endColorstr='#ab2316');
-	background-color: #d4271b;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d63a2f
+		), color-stop(1, #c62d1f));
+	background: -moz-linear-gradient(center top, #d63a2f 5%, #c62d1f 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d63a2f',
+		endColorstr='#c62d1f');
+	background-color: #d63a2f;
 	-webkit-border-top-left-radius: 20px;
 	-moz-border-radius-topleft: 20px;
 	border-top-left-radius: 20px;
@@ -41,127 +127,65 @@ Chris: CSS and HTML layout
 	display: inline-block;
 	color: #ffffff;
 	font-family: Arial;
-	font-size: 14px;
+	font-size: 15px;
 	font-weight: bold;
 	font-style: normal;
-	height: 26px;
+	height: 28px;
 	line-height: 26px;
-	width: 150px;
+	width: 70px;
 	text-decoration: none;
 	text-align: center;
 	text-shadow: 1px 1px 0px #810e05;
 }
 
 .loginButton:hover {
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ab2316
-		), color-stop(1, #d4271b));
-	background: -moz-linear-gradient(center top, #ab2316 5%, #d4271b 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ab2316',
-		endColorstr='#d4271b');
-	background-color: #ab2316;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f
+		), color-stop(1, #d63a2f));
+	background: -moz-linear-gradient(center top, #c62d1f 5%, #d63a2f 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f',
+		endColorstr='#d63a2f');
+	background-color: #c62d1f;
 }
 
-.loginPasswordButton:active {
+.loginButton:active {
 	position: relative;
 	top: 1px;
 }
 /* This button was generated using CSSButtonGenerator.com */
-body {
-	background-color: #C20400;
-	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-}
-
-#main {
-	-moz-box-shadow: inset 0px 1px 0px 0px #f5978e;
-	-webkit-box-shadow: inset 0px 1px 0px 0px #f5978e;
-	-webkit-border-top-left-radius: 20px;
-	-moz-border-radius-topleft: 20px;
-	border-top-left-radius: 20px;
-	-webkit-border-top-right-radius: 20px;
-	-moz-border-radius-topright: 20px;
-	border-top-right-radius: 20px;
-	-webkit-border-bottom-right-radius: 20px;
-	-moz-border-radius-bottomright: 20px;
-	border-bottom-right-radius: 20px;
-	-webkit-border-bottom-left-radius: 20px;
-	-moz-border-radius-bottomleft: 20px;
-	position: relative;
-	background-color: #FFFFFF;
-	max-width: 775px;
-	min-width: 575px;
-	min-height: 400px;
-	margin: auto;
-	padding-left: 25px;
-	padding-right: 25px;
-	padding-bottom: 10px;
-	padding-top: 10px;
-}
-
-input {
-	padding-left: 5px;
-	border: 1px solid #C20400;
-	color: #C20400;
-}
-
-table {
-	font-size: 18px;
-	margin-left: 50px;
-}
-
-td {
-	padding-right: 15px;
-}
-
-label {
-	color: #C20400;
-	font-weight: bold;
-}
-
-h1 {
-	margin-left:40px;
-	color: #C20400;
-}
-
-#portal {
-	position: absolute;
-	font-weight: bold;
-	width: 100%;
-	max-width: 725px;
-	bottom: 10px;
-}
-
-#innerPortal {
-	position: relative;
-	height: 100%;
-	width: 100%;
-	text-align: center;
-	font-size: 20px;
-}
-
-a {
-	color: #C20400;
-	text-decoration: none;
-}
-
-a:hover {
-	color: #C20400;
-	text-decoration: underline;
-}
 </style>
 </head>
 <body>
-	<div id="main">
-	<h1>Login</h1>
-		<table>
+	<div class="mainBody">
+		<div id="loginForm">
+			<h2>Welcome to PoliTalk!</h2>
 			<form action="login" method="post">
-				<tr><td>Username:</td><td><input type="text" name="userName" maxlength="45" /></td></tr>
-				<tr><td>Password:</td><td><input type="password" name="password" maxlength="45" /></td></tr>
-				<tr><td></td><td><input class="loginButton" type="submit" value="Login" /></td></tr>
+				<table>
+					<tr>
+						<td><label>Username:</label></td>
+						<td><input type="text" name="user" required /></td>
+					</tr>
+					<tr>
+						<td><label>Password:</label></td>
+						<td><input type="password" name="pass" required /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+				<input class="loginButton" type="submit" value="Login" />
 			</form>
-			<c:if test="${not empty errMsg }">
-				<p style="color: red">${errMsg}</p>
-			</c:if>
-		</table>
+		</div>
+		<c:if test="${not empty param.errMsg}">
+			<div id="error">
+				<div>${param.errMsg }</div>
+			</div>
+		</c:if>
+		<div id="portal">
+			<div>
+				<a href="home">Back to Front Page</a>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

@@ -180,7 +180,11 @@ public class ArticleHelper {
 				//+"'null' )";
 		//"Insert into Articles ( Title, Catagories, AuthorID, Hits, ImageFilePath, ArticleText, Response ) values (?, ?, ?, 0, ?, ?, null")
 		try{
-			addArticle.setString(1,nArticle.getTitle());
+			if(nArticle.getTitle() != null){
+				addArticle.setString(1,nArticle.getTitle());
+			}else{
+				addArticle.setNull(1, java.sql.Types.VARCHAR);
+			}
 		addArticle.setString(2, nArticle.getCategories());
 		addArticle.setString(4, nArticle.getImage_path());
 		addArticle.setString(5, nArticle.getText());

@@ -26,6 +26,7 @@ public class UserHelperTest {
 	/**
 	* Tests that adding a user to the database works properly
 	*/
+	@Test
 	public void addUserTest() throws Exception{
 		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	    ArrayList<User> userList = new ArrayList<User>();
@@ -51,6 +52,7 @@ public class UserHelperTest {
 	/**
  	* Test for changing a user's password	 
  	*/ 
+	@Test
 	public void passwordChangeTest(){
 
 		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
@@ -58,7 +60,7 @@ public class UserHelperTest {
 	
 	    instance.setUsername("luke");
             instance.setPassword("pass");
-            instance.setRole("admin");
+            instance.setRole(4);
             instance.setImage_path("path");
             instance.addUser();
 
@@ -68,12 +70,54 @@ public class UserHelperTest {
 	    instance.setPassword("newpass");
 	    instance.changePassword();
 
-	    userList = instance.getUserList();
+	    userList = instance.getUsers();
 
 	    assertEquals("change pass", "newpass", userList.get(0).getPassword());
 
-
-
 	}//passwordChangeTest()
 
+	
+	/**
+	 * Test changing the role of a user
+	 */
+	@Test
+	public void roleChangeTest(){
+		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	    ArrayList<User> userList = new ArrayList<User>();
+	
+	    instance.setUsername("luke");
+            instance.setPassword("pass");
+            instance.setRole(3);
+            instance.setImage_path("path");
+            instance.addUser();
+
+	    userList = instance.getUsers();
+	    
+	    instance.setRole(4);
+	    instance.setUid(userList.get(0).getId());
+	    instance.changeRole();
+	    
+	    userList = instance.getUsers();
+	    assertEquals("change role", 4, userList.get(0).getRole());
+	    
+	    
+	}
+	
+	/**
+	 * Test the validate user method
+	 */
+	@Test
+	public void validateTest(){
+		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+		
+	    instance.setUsername("luke");
+        instance.setPassword("pass");
+        instance.setRole(3);
+        instance.setImage_path("path");
+        instance.addUser();
+        
+        User u = instance.validate("luke", "pass");
+        
+        assertEquals("validation test", 1, u.getId());
+	}
 }//class

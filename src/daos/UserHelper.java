@@ -39,7 +39,7 @@ public class UserHelper {
 			addUser = conn.prepareStatement("Insert into Users (Username, Password, ProfilePicPath, Role ) vaules (?, ?, ?, ? )");
 			selectUID = conn.prepareStatement("Select Uid from Users where Username =?");
 			changeUserPW = conn.prepareStatement("UPDATE Users SET Password=? WHERE Uid=?");
-			changeUserRole = conn.prepareStatement("UPDATE Users SET Role=? WHERE Username=?");
+			changeUserRole = conn.prepareStatement("UPDATE Users SET Role=? WHERE Uid=?");
 			getUser = conn.prepareStatement("Select * from Users Where Uid=?");
 			getUserList = conn.prepareStatement("Select * from Users");
 		}catch(Exception e) {
@@ -132,8 +132,7 @@ public class UserHelper {
 		try{
 			addUser.setString(1, username);
 			selectUID.setString(1, username);
-			changeUserPW.setString(2, username);
-			changeUserRole.setString(2, username);
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -174,8 +173,9 @@ public class UserHelper {
 	 */
 	public void setUid(int uid){
 		try{
-			changeUserPW.setInt(1, uid);
+			changeUserPW.setInt(2, uid);
 			getUser.setInt(1, uid);
+			changeUserRole.setInt(2, uid);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
