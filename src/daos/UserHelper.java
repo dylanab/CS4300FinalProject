@@ -1,7 +1,12 @@
 package daos;
 
 import java.sql.*;
+import java.util.ArrayList;
 import dtos.*;
+/**
+ * The UserHelp is the data access object for User objects
+ * @author Michael Tankersley
+ */
 public class UserHelper {
 
 	protected Connection conn = null;
@@ -12,6 +17,7 @@ public class UserHelper {
 	protected PreparedStatement changeUserPW;
 	protected PreparedStatement changeUserRole;
 	protected PreparedStatement getUser;
+	protected PreparedStatement getUserList;
 	/**
 	 * Create the driver, connection, and prepared statement for the database
 	 * @param url
@@ -32,9 +38,10 @@ public class UserHelper {
 			validateUser = conn.prepareStatement("Select Uid, ProfilePicPath, Role from Users where Username =?, Password =?");
 			addUser = conn.prepareStatement("Insert into Users (Username, Password, ProfilePicPath, Role ) vaules (?, ?, ?, ? )");
 			selectUID = conn.prepareStatement("Select Uid from Users where Username =?");
-			changeUserPW = conn.prepareStatement("UPDATE Users SET Password=? WHERE Username=?");
+			changeUserPW = conn.prepareStatement("UPDATE Users SET Password=? WHERE Uid=?");
 			changeUserRole = conn.prepareStatement("UPDATE Users SET Role=? WHERE Username=?");
 			getUser = conn.prepareStatement("Select * from Users Where Uid=?");
+			getUserList = conn.prepareStatement("Select * from Users");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -76,7 +83,7 @@ public class UserHelper {
 	 * @param npassword
 	 * @return
 	 */
-	public void addNewUser(User newUser) { //make prepared statement in aux methods
+	public void addNewUser() { //make prepared statement in aux methods
 		try{
 			addUser.executeUpdate();
 		}catch (Exception e) {
@@ -162,6 +169,19 @@ public class UserHelper {
 	}
 	
 	/**
+	 * Set the uid for the prepared statements
+	 * @param uid
+	 */
+	public void setUid(int uid){
+		try{
+			changeUserPW.setInt(1, uid);
+			getUser.setInt(1, uid);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Set the profile image path for the prepared statements
 	 * @param path
 	 */
@@ -173,7 +193,7 @@ public class UserHelper {
 		}
 	}
 	
-	public User checkForUser(int id){
+	public User getUser(){
 		User u = null;
 		ResultSet r;
 		int uid = -1;
@@ -182,7 +202,7 @@ public class UserHelper {
 		String pw = null;
 		String path = null;
 		try{
-			getUser.setInt(1, id);
+			//getUser.setInt(1, id);
 			r = getUser.executeQuery();
 			while(r.next()){
 				uid = r.getInt("Uid");
@@ -196,6 +216,35 @@ public class UserHelper {
 			e.printStackTrace();
 		}
 		return u;
+	}
+	
+	/**
+	 * get a list of all users
+	 */
+	public ArrayList<User> getUsers(){
+		ArrayList<User> users = new ArrayList<User>();
+		ResultSet r;
+		int uid = 0;
+		String username = null;
+		String pw = null;
+		String path = null;
+		int role = 0;
+		User u = null;
+		try{
+			r = getUserList.executeQuery();
+			while(r.next()){
+				uid = r.getInt("Uid");
+				username = r.getString("Username");
+				role = r.getInt("Role");
+				pw = r.getString("Password");
+				path = r.getString("ProfilePicPath");
+				u = new User(uid, username, role, pw, path);
+				users.add(u);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return users;
 	}
 }
 

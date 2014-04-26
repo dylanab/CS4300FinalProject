@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.ArrayList;
+
 import daos.*;
 import dtos.*;
 public class UserHelperTest {
@@ -15,8 +17,8 @@ public class UserHelperTest {
 
 	@Test
 	public void testConstructor() {
-	    UserHelper instance = new UserHelper();
-	    //assertNotNull("",);	
+		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+		assertNotNull("Constructor not null", instance);
 	    
 	}
 
@@ -25,16 +27,17 @@ public class UserHelperTest {
 	* Tests that adding a user to the database works properly
 	*/
 	public void addUserTest() throws Exception{
-	    UserHelper instance = new UserHelper();
+		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	    ArrayList<User> userList = new ArrayList<User>();
 
-	    instance.setName("luke");
-	    instance.setPassword("pass");
-	    instance.setRole("admin");
-	    instance.setImage_path("path");
-	    instance.addUser();
+	    User u = new User("luke", 4, "pass", "path");
+	    instance.setUsername(u.getName());
+	    instance.setRole(u.getRole());
+	    instance.setPassword(u.getPassword());
+	    instance.setImage_path(u.getImage_path());
+	    instance.addNewUser();
 
-	    userList = instance.getUserList();
+	    userList = instance.getUsers();
 
 	    assertEquals("length after one user insert", 1, workerList.size());
 	    assertEquals("username", "luke", userList.get(0).getName());
@@ -50,18 +53,18 @@ public class UserHelperTest {
  	*/ 
 	public void passwordChangeTest(){
 
-	    UserHelper instance = new UserHelper();
+		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	    ArrayList<User> userList = new ArrayList<User>();
 	
-	    instance.setName("luke");
+	    instance.setUsername("luke");
             instance.setPassword("pass");
             instance.setRole("admin");
             instance.setImage_path("path");
             instance.addUser();
 
-	    userList = instance.getUserList();
+	    userList = instance.getUsers();
 
-	    instance.setId(userList.get(0).getId());
+	    instance.setUid(userList.get(0).getId());
 	    instance.setPassword("newpass");
 	    instance.changePassword();
 
@@ -72,14 +75,5 @@ public class UserHelperTest {
 
 
 	}//passwordChangeTest()
-
-
-	/**
- 	* Test for updating a user's profile image
- 	*/
-	public void updateUserImage() throws Exception(){}
-
-
-
 
 }//class

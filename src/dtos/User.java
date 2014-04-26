@@ -1,4 +1,4 @@
-package pt;
+package dtos;
 
 public class User {
 
@@ -10,7 +10,7 @@ private String image_path;
 
 
 
-User(int id, String name, int role, String password, String image_path){
+public User(int id, String name, int role, String password, String image_path){
 	this.id = id;
 	this.name = name;
 	this.role = role;
@@ -19,13 +19,20 @@ User(int id, String name, int role, String password, String image_path){
 }//constructor
 
 
-User(String name, int role, String password, String image_path){
+public User(String name, int role, String password, String image_path){
         this.name = name;
         this.role = role;
         this.password = password;
         this.image_path = image_path;
 }//constructor
 
+public User() {
+    this.name = null;
+    this.role = 0;
+    this.password = null;
+    this.image_path = null;
+
+}//no arg constructor
 
 public int getId(){ return id; }
 public String getName(){ return name; }
