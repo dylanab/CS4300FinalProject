@@ -6,11 +6,11 @@ User roles are stored as Ints!
 
 Team TODO list:
 Primary: -finish up jsps (chris)
-         -static file stuff (?)
-         -post request for editingview (Luke)
+         -static file stuff (dylan?)
+         -get and post request logic for editingview (Luke)
          -deploy and debug (All)
          
-Secondary: -encrypt passes (easy)
+Secondary: -update hits
            -user image upload (may require servlet sorcery)
 
 
