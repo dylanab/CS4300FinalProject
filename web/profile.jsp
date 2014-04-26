@@ -7,7 +7,7 @@
 <jsp:setProperty property="searchString" name="articleBean"
 	value="${searchString}" />
 <jsp:setProperty property="author_id" name="articleBean"
-	value="${author_id}" />-->
+	value="${author_id}" />
 
 <html>
 
