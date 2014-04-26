@@ -171,6 +171,7 @@ public class UserHelper {
 	public void setUid(int uid){
 		try{
 			changeUserPW.setInt(1, uid);
+			getUser.setInt(1, uid);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -188,7 +189,7 @@ public class UserHelper {
 		}
 	}
 	
-	public User checkForUser(int id){
+	public User getUser(){
 		User u = null;
 		ResultSet r;
 		int uid = -1;
@@ -197,7 +198,7 @@ public class UserHelper {
 		String pw = null;
 		String path = null;
 		try{
-			getUser.setInt(1, id);
+			//getUser.setInt(1, id);
 			r = getUser.executeQuery();
 			while(r.next()){
 				uid = r.getInt("Uid");
