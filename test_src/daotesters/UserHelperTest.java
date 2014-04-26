@@ -17,7 +17,7 @@ public class UserHelperTest {
 
 	@Test
 	public void testConstructor() {
-		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "username", "pw");
+		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 		assertNotNull("Constructor not null", instance);
 	    
 	}
@@ -27,7 +27,7 @@ public class UserHelperTest {
 	* Tests that adding a user to the database works properly
 	*/
 	public void addUserTest() throws Exception{
-		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "username", "pw");
+		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	    ArrayList<User> userList = new ArrayList<User>();
 
 	    User u = new User("luke", 4, "pass", "path");
@@ -53,7 +53,7 @@ public class UserHelperTest {
  	*/ 
 	public void passwordChangeTest(){
 
-		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "username", "pw");
+		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	    ArrayList<User> userList = new ArrayList<User>();
 	
 	    instance.setUsername("luke");

@@ -18,7 +18,7 @@ public class ArticleHelperTest {
 
     @Test
 	public void testConstructor() {
-	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "username", "pw");
+	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	assertNotNull("Constructor not null", instance);
 	//assertNotNull("",);
 
@@ -29,7 +29,7 @@ public class ArticleHelperTest {
      * Tests that adding a user to the database works properly
      */
     public void submitArticleTest() throws Exception{
-	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "username", "pw");
+	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	ArrayList<Article> articleList = new ArrayList<Article>();
 	
 	Article article1 = new Article(1, "Article 1", "lolololol", "path", "something, something else", 0, 1, 2);
@@ -50,7 +50,7 @@ public class ArticleHelperTest {
      * Test for editing an article's text
      */
     public void updateArticleText() throws Exception(){
-    	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "username", "pw");
+    	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
     	ArrayList<Article> articleList = new ArrayList<Article>();
     	
     	Article article1 = new Article(1, "Article 1", "lolololol", "path", "something, something else", 0, 1, 2);
