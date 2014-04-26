@@ -1,6 +1,11 @@
  <%@page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" isELIgnored="false"%> 
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <jsp:useBean class="daos.ArticleHelper" id="articleBean" />
+    <jsp:useBean class="daos.UserHelper" id="userBean" />
+	<jsp:setProperty property="uid" name="userBean"
+		value="${author_id}" />
+	<jsp:setProperty property="article_id" name="articleBean" value="${article_object.response_id }" />
 <!DOCTYPE html>
 <html>
 
@@ -201,9 +206,9 @@ img {
 <body>
 <div class="mainBody">
 <h2>${article_object.title}</h2>
-	<div class="articleHead">By <a href="profile?user_id=${article_object.author_id}">GetUserFiller</a> 
+	<div class="articleHead">By <a href="profile?user_id=${article_object.author_id}">${userBean.user.name}</a> 
 		<c:if test="${not empty article_object.response_id}">
-				<br> A response to <a href="article?article_id=${article_object.response_id}">GetArticlebyId</a>
+				<br> A response to <a href="article?article_id=${article_object.response_id}">${articleBean.article.title}</a>
 		</c:if>
   	</div>
 	<div class="articleContent">

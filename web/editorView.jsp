@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:useBean class="daos.ArticleHelper" id="articleBean" />
+<jsp:setProperty property="article_id" name="articleBean" value="${param.article_id}" />
 <!DOCTYPE html>
 <html>
 <!-- Authors: Christopher Ghyzel, Dylan Bowne
@@ -223,12 +225,12 @@ select {
 			<form method='post' action='editArticle'>
 
 
-				<input type="text" value="Current title" name="articleTitle" /> 
+				<input type="text" value="${articleBean.article.title }" name="articleTitle" /> 
 				
 				
-				<input type="hidden" name="article_id" value="${ param.article_id }" />
+				<input type="hidden" name="article_id" value="${param.article_id}" />
 				<textarea name="articleContent" cols="80">
-				GET ARTICLE CONTENT
+				${articleBean.article.text }
     			</textarea>
     			<br /><span class="category">Category: </span><select
 					name="category">
