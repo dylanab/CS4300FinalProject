@@ -2,6 +2,11 @@ package daotesters;
 
 import static org.junit.Assert.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +15,7 @@ import java.util.ArrayList;
 import daos.*;
 import dtos.*;
 
-public class ArticleHelperTest {
+public class ArticleHelperTest extends TestCase{
 
     @Before
     public void setUp() throws Exception {

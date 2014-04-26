@@ -2,6 +2,11 @@ package daotesters;
 
 import static org.junit.Assert.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,10 +14,34 @@ import java.util.ArrayList;
 
 import daos.*;
 import dtos.*;
-public class UserHelperTest {
+public class UserHelperTest extends TestCase {
 
 	@Before
 	public void setUp() throws Exception {
+	    super.setUp();
+
+	    String JDBC_URL = "jdbc:mysql://172.17.152.92/testpolitalk";
+	    String DB_USER = "luke";
+	    String DB_PASS  = "ukulele5";
+
+	    try {
+		//Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(
+							      JDBC_URL, DB_USER, DB_PASS);
+            PreparedStatement clearUserStatement =
+                conn.prepareStatement("delete from Users");
+            PreparedStatement clearArticleStatement =
+                conn.prepareStatement("delete from Articles");
+
+            clearArticleStatement.execute();
+            clearUserStatement.execute();
+
+            System.out.println("Cleared all db tables");
+	    }
+	    catch(SQLException sqle) {
+		System.out.println("Exception in setUp:" +
+				   sqle.getMessage());
+	    }
 	}
 
 	@Test
