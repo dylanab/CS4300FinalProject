@@ -11,12 +11,19 @@ User roles are stored as Ints!
 3 : Mod
 4 : Admin
 
+Team TODO list:
+Primary: -finish up jsps (chris)
+         -static file stuff (?)
+         -post request for editingview (Luke)
+         -deploy and debug (All)
+         
+Secondary: -encrypt passes (easy)
+           -user image upload (may require servlet sorcery)
+
 What are you working on?
 
 Chris: Styling JSPs.
 
 Michael: Added the schema; see commit comment
 
-Luke: So until 5 minutes ago I was under the impression that the servlet made helper objects and setAttributes for the jsps. Chris showed me you can just call helper functions from jsp(except for post requests). Which makes SO MUCH SENSE. So now I'm going to throw out a lot of servlet code and redo it the simple way. AND add usebeans and jsp:setproperties to the jsps
-MasterServlet: done except for editingView post request.
-jsps: working on it
+Luke: Just doing whatever needs doing
