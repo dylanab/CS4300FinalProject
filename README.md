@@ -1,10 +1,3 @@
-TODO:
-Pretty much everything
-
-High priority:
-!!!!Data Model!!!! We cannot proceed to making DAOs and DTOS without this!!!!!!!!
-Wireframes
-
 User roles are stored as Ints!
 1 : Guest
 2 : User
@@ -19,6 +12,9 @@ Primary: -finish up jsps (chris)
          
 Secondary: -encrypt passes (easy)
            -user image upload (may require servlet sorcery)
+
+
+Make sure all your code has your name on it and is SPEC COMMENTED
 
 What are you working on?
 
