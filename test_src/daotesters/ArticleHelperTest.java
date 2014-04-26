@@ -13,7 +13,31 @@ import dtos.*;
 public class ArticleHelperTest {
 
     @Before
-	public void setUp() throws Exception {
+    public void setUp() throws Exception {
+	super.setUp();
+
+        String JDBC_URL = "jdbc:mysql://172.17.152.92/testpolitalk";
+        String DB_USER = "luke";
+        String DB_PASS  = "ukulele5";
+
+        try {
+            //Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(
+                                                          JDBC_URL, DB_USER, DB_PASS);
+            PreparedStatement clearUserStatement =
+                conn.prepareStatement("delete from Users");
+            PreparedStatement clearArticleStatement =
+                conn.prepareStatement("delete from Articles");
+
+            clearArticleStatement.execute();
+            clearUserStatement.execute();
+
+            System.out.println("Cleared all db tables");
+        }
+        catch(SQLException sqle) {
+            System.out.println("Exception in setUp:" +
+                               sqle.getMessage());
+        }
     }
 
     @Test
@@ -65,7 +89,74 @@ public class ArticleHelperTest {
     	assertEquals("new article name", "Article 1 edited", articleList.get(0).getTitle());
     }
 
+    /**
+     *Test article removal
+     */
+     public void removeArticleTest() throws Exception() {
+	 ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	 ArrayList<Article> articleList = new ArrayList<Article>();
 
+	 Article article2 = new Article(1, "Article 2 is here", "lolololol", "path", "something, something else", 0, 1, 2);
+	 instance.addArticleToDB(article2);
+
+	 articleList = instance.getArticles();
+	 assertEquals("new article name", "Article 2 is here", articleList.get(1).getTitle());
+	 
+	 int a_id = articleList(.get(1).getId());
+	 instance.setArticle_id(a_id);
+	 instance.removeArticle();
+
+	 //check for article, shouldn't find it. NOTE: this also partially tests checkForArticle
+	 Article foundArticle = instance.checkForArticle(a_id);
+	 assertNull(foundArticle);
+     }
+
+    /**
+     *Test checkForArticle 
+     */
+    public void checkForArticleTest() throws Exception() {
+	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	ArrayList<Article> articleList = new ArrayList<Article>();
+
+	Article article = new Article(1, "Article Title", "lolololol", "path", "something, something else", 0, 1, 2);
+	instance.addArticleToDB(article);
+
+	articleList = instance.getArticles();
+	assertEquals("new article name", "Article Title", articleList.get(0).getTitle());
+
+	int a_id = articleList.get(0).getId();
+
+	//check for article, should find it.
+	Article foundArticle = instance.checkForArticle(a_id);
+	assertNotNull(foundArticle);
+    }
+
+    public void testArticleSearch() throws Exception() {
+	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+        ArrayList<Article> articleList = new ArrayList<Article>();
+
+        Article article1 = new Article(1, "Article Title1", "lolololol", "path", "something, something else", 0, 1, 2);
+        Article article2 = new Article(2, "Article Title2", "DERDEDRERERDER", "path", "something, something else", 0, 1, 2);
+        Article article3 = new Article(3, "Article Title3", "hi", "path", "something, something else", 0, 2, 2);
+        instance.addArticleToDB(article1);        
+	instance.addArticleToDB(article2);        
+	instance.addArticleToDB(article3);
+
+	instance.setAuthor_id(1);
+	instance.setSearchString("Title2");
+	articleList = instance.articleSearchOfUser();
+
+	assertNotNull(articleList.get(0));
+	assertEquals(articleList.get(0).getText, "DERDEDRERERDER");
+
+	assertEquals("should only find one article", 1, articleList.size());
+        assertEquals("author id", 1, articleList.get(0).getAuthorId());
+        assertEquals("text", "DERDEDRERERDER", articleList.get(0).getArticleText());
+        assertEquals("response", 2, articleList.get(0).getArticleResponses());
+        assertEquals("imagepath", "path", articleList.get(0).getArticleImagePath());
+        assertEquals("categories", "something, something else", articleList.get(0).getCategories());
+
+    }
 
 
 }//class
