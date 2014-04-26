@@ -3,6 +3,10 @@ package daos;
 import java.sql.*;
 import java.util.ArrayList;
 import dtos.*;
+/**
+ * The UserHelp is the data access object for User objects
+ * @author Michael Tankersley
+ */
 public class UserHelper {
 
 	protected Connection conn = null;

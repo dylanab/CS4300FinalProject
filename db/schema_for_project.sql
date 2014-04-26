@@ -1,5 +1,5 @@
 #
-#	this SQL file creates the schema for the Politalk database
+#	this SQL file creates the schema for the Politalk database (Michael Tankersley)
 #
 
 use politalk;

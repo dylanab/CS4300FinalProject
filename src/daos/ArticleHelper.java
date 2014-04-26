@@ -4,7 +4,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import dtos.*;
 
-
+/**
+ * ArticleHelper is the data access object for article objects
+ * @author Michael Tankersley
+ */
 public class ArticleHelper {
 	protected Connection conn = null;
 	//protected Statement statement = null;
