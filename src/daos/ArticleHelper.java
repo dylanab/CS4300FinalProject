@@ -119,12 +119,7 @@ public class ArticleHelper {
 	 * @param id
 	 * @return
 	 */
-	public Article checkForArticle(int id){
-		try{
-			getArticle.setInt(1, id);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+	public Article getArticle(){
 		Article a = null;
 		//String query = "Select a.Catagories, u.Uid, a.Hits, a.ImageFilePath, a.ArticleText, a.Response, u.Username, u.Password, u.ProfilePicPath, u.Role, a.Title from Articles a, Users u Where a.id='"+id+"'";
 		String a_catagories = null;
@@ -133,6 +128,7 @@ public class ArticleHelper {
 		String a_imageFilePath = null;
 		String a_articleText = null;
 		int a_response = 0;
+		int id = 0;
 		//String u_username = null;
 		//String u_password = null;
 		//int u_role = 0;
@@ -145,6 +141,7 @@ public class ArticleHelper {
 			r = getArticle.executeQuery();	
 			while(r.next()){
 					a_catagories = r.getString("Catagories");
+					id = r.getInt("Id");
 					u_id = r.getInt("AuthorID");
 					a_hits = r.getInt("Hits");
 					a_imageFilePath = r.getString("ImageFilePath");
@@ -319,6 +316,7 @@ public class ArticleHelper {
 	public void setArticle_id(int id){
 		try{
 			removeArticle.setInt(1, id);
+			getArticle.setInt(1, id);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
