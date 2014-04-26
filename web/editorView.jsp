@@ -4,10 +4,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
+<!-- Authors: Christopher Ghyzel, Dylan Bowne
+	 Description: Page for editing/creating articles
+	 Roles:
+	  Chris Ghyzel: Layout/Styling and Page logic
+	  Dylan Bowne:  Installed NicEdit
+ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Editor Test</title>
-</head>
+<title>Article Editor - Politalk</title>
+
 <style>
 body {
 	background-color: #1240AB;
@@ -16,14 +22,15 @@ body {
 
 input {
 	height: 20px;
-	margin-bottom:20px;
-	padding-left:10px;
-	font-weight:bold;
+	margin-bottom: 20px;
+	padding-left: 10px;
+	font-weight: bold;
 	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 	font-size: 20px;
 	color: #A60400;
 }
-h2 {
+
+h1 {
 	color: #A60400;
 	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
@@ -122,7 +129,7 @@ a:hover {
 	line-height: 26px;
 	width: 70px;
 	text-decoration: none;
-	text-align: center;
+	text-align: center; 
 	text-shadow: 1px 1px 0px #810e05;
 }
 
@@ -158,7 +165,20 @@ img {
 	width: 100px;
 	height: 100px;
 }
+select {
+   width: 150px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   height: 30px;
+}
+.category {
+	color: #A60400;
+	font-size: 20px;
+	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+}
 </style>
+</head>
 <body>
 	<div class="mainBody">
 
@@ -172,27 +192,60 @@ img {
 			//]]>
 		</script>
 		<c:if test="${empty param.article_id }">
-		<h2>Create Article</h2>
-		<input type="text" value="Title" name="title"/>
+			<h1>Create Article</h1>
 			<form method='post' action='createArticle'>
-				<textarea name="area1" cols="80">
-				
+
+				<input type="text" value="Title" name="articleTitle" />
+				<textarea name="articleContent" cols="80">
     </textarea>
-				<br /> <input class="changeButton" type='submit' value='Create' name='Create Article'>
+				 
+					<br /><span class="category">Category: </span><select
+					name="category">
+
+					<option value="Fashion">Fashion</option>
+					<option value="News">News</option>
+					<option value="Politics">Politics</option>
+					<option value="Pop_Culture">Pop Culture</option>
+					<option value="Satire">Satire</option>
+					<option value="Science">Science</option>
+					<option value="Sports">Sports</option>
+					<option value="Technology">Technology</option>
+					<option value="Other" selected>Other</option>
+
+				</select>
+					<br /><br /><input class="changeButton" type='submit' value='Create'
+					name='Create Article'>
 			</form>
 		</c:if>
 
 		<c:if test="${not empty param.article_id }">
-		<h2>Edit Article</h2>
+			<h1>Edit Article</h1>
 			<form method='post' action='editArticle'>
-			
-		
-		<input type="text" value="Current title" name="title"/>
+
+
+				<input type="text" value="Current title" name="articleTitle" /> 
+				
+				
 				<input type="hidden" name="article_id" value="${ param.article_id }" />
-				<textarea name="area1" cols="80">
+				<textarea name="articleContent" cols="80">
 				GET ARTICLE CONTENT
     			</textarea>
-				<br /> <input class="changeButton" type='submit' value='Submit' name='Create Article'>
+    			<br /><span class="category">Category: </span><select
+					name="category">
+
+					<option value="Fashion">Fashion</option>
+					<option value="News">News</option>
+					<option value="Politics">Politics</option>
+					<option value="Pop_Culture">Pop Culture</option>
+					<option value="Satire">Satire</option>
+					<option value="Science">Science</option>
+					<option value="Sports">Sports</option>
+					<option value="Technology">Technology</option>
+					<option value="Other" selected>Other</option>
+
+				</select>
+				<br /><br /><input class="changeButton" type='submit' value='Submit'
+					name='Create Article'>
 			</form>
 		</c:if>
 
