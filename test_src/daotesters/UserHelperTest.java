@@ -184,6 +184,5 @@ public class UserHelperTest extends TestCase {
 
 	}
 	
-    }
 
 }//class

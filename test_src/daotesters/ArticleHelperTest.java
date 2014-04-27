@@ -109,7 +109,7 @@ public class ArticleHelperTest extends TestCase{
 	 articleList = instance.getArticles();
 	 assertEquals("new article name", "Article is here", articleList.get(0).getTitle());
 	 
-	 int a_id = articleList.get(0).getId());
+	 int a_id = articleList.get(0).getId();
 	 instance.setArticle_id(a_id);
 	 instance.removeArticle();
 
