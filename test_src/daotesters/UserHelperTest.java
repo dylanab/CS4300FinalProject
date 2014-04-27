@@ -57,7 +57,7 @@ public class UserHelperTest extends TestCase {
 	*/
 	@Test
 	public void addUserTest() throws Exception{
-		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	    UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	    ArrayList<User> userList = new ArrayList<User>();
 
 	    User u = new User("luke", 4, "pass", "path");
@@ -72,7 +72,7 @@ public class UserHelperTest extends TestCase {
 	    assertEquals("length after one user insert", 1, workerList.size());
 	    assertEquals("username", "luke", userList.get(0).getName());
 	    assertEquals("passowrd", "pass", userList.get(0).getPassword());
-	    assertEquals("role", "admin", userList.get(0).getRole());
+	    assertEquals("role", 4 , userList.get(0).getRole());
 	    
 
 	}//addUserTest
@@ -111,7 +111,7 @@ public class UserHelperTest extends TestCase {
 	 */
 	@Test
 	public void roleChangeTest(){
-		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	    UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	    ArrayList<User> userList = new ArrayList<User>();
 	
 	    instance.setUsername("luke");
@@ -139,14 +139,49 @@ public class UserHelperTest extends TestCase {
 	public void validateTest(){
 		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 		
-	    instance.setUsername("luke");
-        instance.setPassword("pass");
-        instance.setRole(3);
-        instance.setImage_path("path");
-        instance.addUser();
+		instance.setUsername("luke");
+		instance.setPassword("pass");
+		instance.setRole(3);
+		instance.setImage_path("path");
+		instance.addUser();
         
-        User u = instance.validate("luke", "pass");
+		User u = instance.validate("luke", "pass");
         
-        assertEquals("validation test", 1, u.getId());
+		assertEquals("validation test", 1, u.getId());
 	}
+
+       /**
+        *Test getting a single user
+        */
+        @Test
+        public void testGetUser() {
+
+	    UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+            ArrayList<User> userList = new ArrayList<User>();
+
+            User user = new User("dylan", 4, "pass", "path");
+            instance.setUsername(u.getName());
+            instance.setRole(u.getRole());
+            instance.setPassword(u.getPassword());
+            instance.setImage_path(u.getImage_path());
+            instance.addNewUser();
+
+            userList = instance.getUsers();
+
+	    int u_id = userList.get(0).getId();
+
+	    instance.setUid(u_id);
+
+	    User returned_user = instance.getUser();
+
+	    assertNotNull(returned_user);
+
+            assertEquals("username", "dylan", returned_user.getName());
+            assertEquals("passowrd", "pass", returned_user.get(0).getPassword());
+            assertEquals("role", 4, returned_user.getRole());
+
+	}
+	
+    }
+
 }//class

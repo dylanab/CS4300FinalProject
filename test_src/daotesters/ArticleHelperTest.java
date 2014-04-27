@@ -136,6 +136,10 @@ public class ArticleHelperTest extends TestCase{
 	assertNotNull(foundArticle);
     }
 
+    /**
+     *Test articleSearch
+     *author: Dylan Bowne
+     */
     public void testArticleSearch() throws Exception() {
 	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
         ArrayList<Article> articleList = new ArrayList<Article>();

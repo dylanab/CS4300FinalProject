@@ -11,6 +11,7 @@ import security.*;
 import dtos.*;
 /**
  * Servlet implementation class LoginController
+ * Author: Dylan Bowne
  */
 @WebServlet("/Login")
 public class LoginController extends HttpServlet {
