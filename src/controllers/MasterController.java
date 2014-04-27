@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import security.*;
 import dtos.*;
 import daos.*;
 
@@ -106,7 +107,7 @@ public class MasterController extends HttpServlet {
 	else if(userPath.equals("/articleView")){
 	    /* dispatch to articleview */
 	    Article article_object;
-	    ArticleHelper helper = new ArticleHelper();
+	    ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
 	    helper.setArticle_id(article_id);
 	    article_object = helper.getArticle();	
 
@@ -126,7 +127,7 @@ public class MasterController extends HttpServlet {
 	}
 	else if(userPath.equals("/editorView")){ /* dispatch to editArticle */
 	        Article article_object;
-	        ArticleHelper helper = new ArticleHelper();
+	        ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
 		helper.setArticle_id(article_id);
 	        article_object = helper.getArticle();
 	    
@@ -144,11 +145,13 @@ public class MasterController extends HttpServlet {
 	else{
 	    /* dispatch to profile page */
 	    User user_object;
-	    UserHelper helper = new UserHelper();
-	    user_object = helper.getUser(user_id);
+	    UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
+	    helper.setUid(user_id);
+	    user_object = helper.getUser();
+
 
 	   if(user_object != null){
-	       request.setAttriubte("user_object", user_object);
+	       request.setAttribute("user_object", user_object);
 	       dispatcher = ctx.getRequestDispatcher("/profile.jsp");
                dispatcher.forward(request, response);
 	   }
@@ -176,15 +179,20 @@ public class MasterController extends HttpServlet {
 	 * 		       
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String session_user = (String)session.getAttribute("username");
+        String session_role = (String)session.getAttribute("role");
+        int session_id = Integer.parseInt((String) session.getAttribute("id"));
+
     try{
 
 	int role = -1;
 	int article_id = -1;
 	
-        HttpSession session = request.getSession();
-        String session_user = (String)session.getAttribute("username");
-        String session_role = (String)session.getAttribute("role");
-        Integer session_id = (Integer)session.getAttribute("id");
+  //        HttpSession session = request.getSession();
+  //      String session_user = (String)session.getAttribute("username");
+  //      String session_role = (String)session.getAttribute("role");
+  //      int session_id = Integer.parseInt((String) session.getAttribute("id"));
 
 
 
@@ -192,6 +200,10 @@ public class MasterController extends HttpServlet {
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
         String confirmpass = request.getParameter("confirmpass");
+	String articleTitle = request.getParameter("articleTitle");
+        String articleContent = request.getParameter("articleContent");
+        String category = request.getParameter("category");
+
         if( (request.getParameter("role")) != null ){
             role = Integer.parseInt( request.getParameter("role") );
         }
@@ -218,7 +230,7 @@ public class MasterController extends HttpServlet {
 	    if(pass == null){ /* add a new user */
 		if(pass == confirmpass){
 		    Encrypter.toSha256(pass);
-		    UserHelper helper = new Userhelper();
+		    UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
 		    helper.setUsername(user);
 		    helper.setPassword(pass);
 		    helper.setRole(role);
@@ -230,15 +242,15 @@ public class MasterController extends HttpServlet {
 	    }
 	    else if(role == -1){ /* request to change a user's password */
 		if(pass == confirmpass){
-		    UserHelper helper = new UserHelper();
+		    UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
 		    Encrypter.toSha256(pass);
 		    helper.setUsername(user);
 		    helper.setPassword(pass);
-		    helper.changePassword();
+		    helper.changePW();
 		}
 	    }
 	    else{ /* request to change a user's role */
-		UserHelper helper = new UserHelper();
+		UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
                 helper.setUsername(user);
                 helper.setRole(role);
                 helper.changeRole();
@@ -248,7 +260,7 @@ public class MasterController extends HttpServlet {
         }
         else if(userPath.equals("/modControls")){
 	    /* request to remove an article */
-	    ArticleHelper helper = new ArticleHelper();
+	    ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
 	    helper.setArticle_id(article_id);
 	    helper.removeArticle();
 	
@@ -261,8 +273,8 @@ public class MasterController extends HttpServlet {
         }
         else if(userPath.equals("/createArticle")){
 	    /* compose new article */
-            ArticleHelper helper = new ArticleHelper();
-            Article article_object = new article(articleTitle, articleContent, "article_default.jpg", category, 0, session_user);
+            ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
+            Article article_object  = new Article(articleTitle, articleContent, "article_default.jpg", category, 0,(int) session_id);;
             helper.addArticleToDB(article_object);
             request.setAttribute("article_object", article_object);
             dispatcher = ctx.getRequestDispatcher("/articleView.jsp");
