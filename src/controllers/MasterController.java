@@ -57,6 +57,10 @@ public class MasterController extends HttpServlet {
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
         String confirmpass = request.getParameter("confirmpass");
+	String articleTitle = request.getParameter("articleTitle");
+	String articleContent = request.getParameter("articleContent");
+	String category = request.getParameter("category");
+
         if( (request.getParameter("role")) != null ){
             role = Integer.parseInt( request.getParameter("role") );
         }
@@ -114,17 +118,11 @@ public class MasterController extends HttpServlet {
                 dispatcher.forward(request, response);
 	    }
 	} 
-	else if(userPath.equals("/editorView")){
-	    /* dispatch to editorView */
-	    if(article_id == -1){ /* compose new article */
-		ArticleHelper helper = new ArticleHelper();
-		Article article_object = new article(/* TODO: info about article */);
-		helper.addArticleToDB(article_object);
-		request.setAttribute("article_object", article_object);
-		dispatcher = ctx.getRequestDispatcher("/articleView.jsp");
-                dispatcher.forward(request, response);
-	    }
-	    else{ /* edit existing article */
+	else if(userPath.equals("/createArticle")){
+	    /* bleeeeh */
+	    
+	}
+	else if(userPath.equals("/editorView")){ /* dispatch to editArticle */
 	        Article article_object;
 	        ArticleHelper helper = new ArticleHelper();
 		helper.setArticle_id(article_id);
@@ -139,7 +137,7 @@ public class MasterController extends HttpServlet {
 		    dispatcher = ctx.getRequestDispatcher("/error.jsp");
                     dispatcher.forward(request, response);
 	        }
-	    }
+	    
 	}
 	else{
 	    /* dispatch to profile page */
@@ -257,9 +255,20 @@ public class MasterController extends HttpServlet {
 
         }
         else if(userPath.equals("/articleView")){
+	    
         }
-        else if(userPath.equals("/editorView")){
+        else if(userPath.equals("/createArticle")){
+	    /* compose new article */
+            ArticleHelper helper = new ArticleHelper();
+            Article article_object = new article(articleTitle, articleContent, "article_default.jpg", category, 0, session_user);
+            helper.addArticleToDB(article_object);
+            request.setAttribute("article_object", article_object);
+            dispatcher = ctx.getRequestDispatcher("/articleView.jsp");
+            dispatcher.forward(request, response);
         }
+	else if(userPath.equals("/editArticle")){
+		/* TODO */
+	}
         else{//profile
         }
 

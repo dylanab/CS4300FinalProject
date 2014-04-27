@@ -1,4 +1,4 @@
-package dtos;
+package pt;
 
 
 /**
@@ -16,7 +16,7 @@ private int author_id;
 private int response_id;
 
 
-public Article(int id, String title, String text, String image_path, String categories, int hits, int author_id, int response_id){
+Article(int id, String title, String text, String image_path, String categories, int hits, int author_id, int response_id){
 	this.id = id;
 	this.title = title;
 	this.text = text;
@@ -25,12 +25,23 @@ public Article(int id, String title, String text, String image_path, String cate
 	this.hits = hits;
 	this.author_id = author_id;
 	this.response_id = response_id;
-} //normal constructor
+} //normal constructor  
+
+
+Article(String title, String text, String image_path, String categories, int hits, int author_id){
+        this.title = title;
+        this.text = text;
+        this.image_path = image_path;
+        this.categories = categories;
+        this.hits = hits;
+        this.author_id = author_id;
+} //no article id or response id
+
 
 /**
  * Does not pass initialize text field
  */
-public Article(int id, String title, String image_path, String categories, int hits, int author_id, int response_id){
+Article(int id, String title, String image_path, String categories, int hits, int author_id, int response_id){
         this.id = id;
    
         this.title = title;
@@ -42,15 +53,15 @@ public Article(int id, String title, String image_path, String categories, int h
         this.response_id = response_id;
 } //constructor without text
 
-public Article(){
-   this.id = 0;
+Article(){
+   this.id = null;
    this.title = null;
    this.text = null;
    this.image_path = null;
    this.categories = null;
-   this.hits = 0;
-   this.author_id = 0;
-   this.response_id = 0;
+   this.hits = null;
+   this.author_id = null;
+   this.response_id = null;
 } //no arg constructor
 
 
