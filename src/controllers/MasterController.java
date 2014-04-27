@@ -18,9 +18,7 @@ import daos.*;
  * Servlet implementation class MasterController
  * Author: Luke Grantham
  */
-@WebServlet(
-	description = "Handles all urls except from login ",
-	urlPatterns = {
+@WebServlet({
 	    "/adminControls",
 	    "/profile",
 	    "/modControls",
@@ -44,18 +42,19 @@ public class MasterController extends HttpServlet {
 	 * 			   attach user object dispatch
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     try{
 
 	int role = -1;
 	int article_id = -1;
 	int user_id = -1;
-	
+	    System.out.println("Fuck this project1");	
 	HttpSession session = request.getSession();
         String session_user = (String)session.getAttribute("username");
         Integer session_role = (Integer)session.getAttribute("role");
         Integer session_id = (Integer)session.getAttribute("id");
 
-
+	    System.out.println("Fuck this project2");
 	/* get parameters */
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
@@ -63,7 +62,7 @@ public class MasterController extends HttpServlet {
 	String articleTitle = request.getParameter("articleTitle");
 	String articleContent = request.getParameter("articleContent");
 	String category = request.getParameter("category");
-
+	    System.out.println("Fuck this project3");
         if( (request.getParameter("role")) != null ){
             role = Integer.parseInt( request.getParameter("role") );
         }
@@ -73,34 +72,39 @@ public class MasterController extends HttpServlet {
 	if( (request.getParameter("user_id")) != null ){
             user_id = Integer.parseInt( request.getParameter("user_id") );
         }
-
+	    System.out.println("Fuck this project4");
         /* trim strings user, pass, confirmpass */
-        user = user.trim();
+	    if(user !=null) {
+		user = user.trim(); }
+	    if(pass !=null) {
         pass = pass.trim();
+	    }
+	    if(confirmpass !=null) {
         confirmpass = confirmpass.trim();
-
-
+	    }
+	    System.out.println("Fuck this project5");
 	ServletContext ctx = this.getServletContext();
         RequestDispatcher dispatcher;	
-
+	    System.out.println("Fuck this project6");
 	String userPath = request.getServletPath();
-	
+	System.out.println("userpath is" + userPath);
 	if(userPath.equals("/index")){
 	    /* dispatch to index */
-	    dispatcher = ctx.getRequestDispatcher("/index.jsp");
+
+	    dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/mainpage.jsp");
             dispatcher.forward(request, response);
 	}
 	else if(userPath.equals("/adminControls")){
 		/* request to access admincontrols */
 		if(session_role == 4){
-		    dispatcher = ctx.getRequestDispatcher("/adminControls.jsp");
+		    dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/adminControls.jsp");
 		    dispatcher.forward(request, response);
 		}   
 	}//else if
 	else if(userPath.equals("/modControls")){
 	    /* request to access modcontrols) */	
 	    if( (session_role == 3) || (session_role == 4) ){
-		dispatcher = ctx.getRequestDispatcher("/modControls.jsp");
+		dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/modControls.jsp");
 		dispatcher.forward(request, response);
 	    }
 	}//else if
@@ -113,11 +117,11 @@ public class MasterController extends HttpServlet {
 
 	    if(article_object != null){
 		request.setAttribute("article_object", article_object);
-	        dispatcher = ctx.getRequestDispatcher("/articleView.jsp");
+	        dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/articleView.jsp");
                 dispatcher.forward(request, response);
 	    }
 	    else{
-		dispatcher = ctx.getRequestDispatcher("/error.jsp");
+		dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/error.jsp");
                 dispatcher.forward(request, response);
 	    }
 	} 
@@ -133,11 +137,11 @@ public class MasterController extends HttpServlet {
 	    
 	        if(article_object != null){
 	    	    request.setAttribute("article_object", article_object);
-	            dispatcher = ctx.getRequestDispatcher("/editorView.jsp");
+	            dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/editorView.jsp");
                     dispatcher.forward(request, response);
 	        }
 	        else{
-		    dispatcher = ctx.getRequestDispatcher("/error.jsp");
+		    dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/error.jsp");
                     dispatcher.forward(request, response);
 	        }
 	    
@@ -152,11 +156,11 @@ public class MasterController extends HttpServlet {
 
 	   if(user_object != null){
 	       request.setAttribute("user_object", user_object);
-	       dispatcher = ctx.getRequestDispatcher("/profile.jsp");
+	       dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/profile.jsp");
                dispatcher.forward(request, response);
 	   }
 	   else{
-	       dispatcher = ctx.getRequestDispatcher("/error.jsp");
+	       dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/error.jsp");
                dispatcher.forward(request, response);
 	   }
    
@@ -236,7 +240,7 @@ public class MasterController extends HttpServlet {
 		    helper.setRole(role);
 		    helper.setImage_path("default.jpg");
 		    helper.addNewUser();
-	    	    dispatcher = ctx.getRequestDispatcher("/adminControls");
+	    	    dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/adminControls/jsp");
 		    dispatcher.forward(request,response);
 		}
 	    }
@@ -254,7 +258,7 @@ public class MasterController extends HttpServlet {
                 helper.setUsername(user);
                 helper.setRole(role);
                 helper.changeRole();
-		dispatcher = ctx.getRequestDispatcher("/adminControls");
+		dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/adminControls.jsp");
 	 	dispatcher.forward(request, response);
 	    }
         }
@@ -264,7 +268,7 @@ public class MasterController extends HttpServlet {
 	    helper.setArticle_id(article_id);
 	    helper.removeArticle();
 	
-	    dispatcher = ctx.getRequestDispatcher("/modControls");
+	    dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/modControls.jsp");
             dispatcher.forward(request, response);
 
         }

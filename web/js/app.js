@@ -15,7 +15,7 @@ angular.module('frontPage', [ //module dependencies
 	$routeProvider
 	    .when('/:articleId?', {
 		templateUrl: 'partials/frontPageView.html',
-		controller: MainCtrl
+		controller: SearchCtrl
 	    })
 	    .otherwise( {
 		redirectTo: '/'

@@ -183,7 +183,7 @@ a:hover {
 		</c:if>
 		<div id="portal">
 			<div>
-				<a href="home">Back to Front Page</a>
+				<a href="index">Back to Front Page</a>
 			</div>
 		</div>
 	</div>

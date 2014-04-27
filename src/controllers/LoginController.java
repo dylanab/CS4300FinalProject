@@ -34,7 +34,8 @@ public class LoginController extends HttpServlet {
 		ServletContext ctx;
 	    try {
 		ctx = this.getServletContext();
-
+		dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/login.jsp");
+	    dispatcher.forward(request, response);
 	    } catch(Exception e) {
 		e.getMessage();
 	    }
@@ -49,9 +50,9 @@ public class LoginController extends HttpServlet {
 	    try{
 		ctx = this.getServletContext();
 
-	    String username = request.getParameter("username");
-	    String password = request.getParameter("password");
-
+	    String username = request.getParameter("user");
+	    String password = request.getParameter("pass");
+	    
 	    username = username.trim();
 	    password = password.trim();
 
@@ -70,16 +71,17 @@ public class LoginController extends HttpServlet {
 		request.getSession().setAttribute("username", user.getName());
 		request.getSession().setAttribute("role", user.getRole());
 		//route to profile, might need to change this to a different jsp.
-		dispatcher = ctx.getRequestDispatcher("/profile.jsp");
+		dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/profile.jsp");
 	    } else {
 		//login unsuccessful, route back to login with a thing to set off the c:if
 		request.setAttribute("error", "name/pass incorrect");
-		dispatcher = ctx.getRequestDispatcher("/login.jsp");
+		dispatcher = ctx.getRequestDispatcher("/WEB-INF/view/login.jsp");
 	    }
 	    dispatcher.forward(request, response);
 	    }//try
 	    catch(Exception e){
 		e.getMessage();
+		response.sendRedirect("/Login");
 	    }
 	}//doPost
 }//class

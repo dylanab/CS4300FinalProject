@@ -7,12 +7,21 @@
         <!--<pathelement location="/home/student/jars/mysql-connector-java.jar" />-->
 	<pathelement location="/home/student/jars/mysql-connector-java-5.1.29-bin.jar" />
 
+
       </classpath>
+
     </javac>
+    <javac srcdir="src" destdir="web/WEB-INF/classes">
+      <classpath>
+	<pathelement location="classes" />
+	<pathelement location="/opt/apache-tomcat-7.0.52/lib/servlet-api.jar"/>
+        <pathelement location="/home/student/jars/mysql-connector-java-5.1.29-bin.jar" />
+	</classpath>
+</javac>
   </target>
 
 
-  <target name="test_compile" depends="compile">
+<!--  <target name="test_compile" depends="compile">
     <javac srcdir="test_src" destdir="test_classes">
       <classpath>
         <pathelement location="classes"/>
@@ -40,14 +49,11 @@
     <test name="daotesters.ArticleHelperTest" />
     <test name="daotesters.UserHelperTest"/>
     </junit>
-  </target>
+  </target> -->
 
 
-  <target name="deploy" depends="test">
-    <war webxml="web.xml" destfile="PoliTalk.war" basedir="web">
-      <classes dir="classes"/>
-      <lib dir="lib"/>
-    </war>
+  <target name="deploy" depends="compile">
+    <war webxml="web.xml" destfile="PoliTalk.war" basedir="web" />
     <copy file="PoliTalk.war" todir="/opt/apache-tomcat-7.0.52/webapps" />
   </target>
 
