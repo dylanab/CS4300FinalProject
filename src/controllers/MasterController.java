@@ -10,6 +10,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import dtos.*;
+import daos.*;
 
 /**
  * Servlet implementation class MasterController
@@ -82,7 +84,7 @@ public class MasterController extends HttpServlet {
 
 	String userPath = request.getServletPath();
 	
-	if(userPath.equals("/index"){
+	if(userPath.equals("/index")){
 	    /* dispatch to index */
 	    dispatcher = ctx.getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
@@ -105,7 +107,7 @@ public class MasterController extends HttpServlet {
 	    /* dispatch to articleview */
 	    Article article_object;
 	    ArticleHelper helper = new ArticleHelper();
-	    helper.setArticle_id;
+	    helper.setArticle_id(article_id);
 	    article_object = helper.getArticle();	
 
 	    if(article_object != null){
@@ -209,7 +211,7 @@ public class MasterController extends HttpServlet {
 
         String userPath = request.getServletPath();
 
-        if(userPath.equals("/index"){
+        if(userPath.equals("/index")){
         }
         else if(userPath.equals("/adminControls")){
 	    
@@ -232,7 +234,7 @@ public class MasterController extends HttpServlet {
 		    Encrypter.toSha256(pass);
 		    helper.setUsername(user);
 		    helper.setPassword(pass);
-		    UserHelper helper.changePassword();
+		    helper.changePassword();
 		}
 	    }
 	    else{ /* request to change a user's role */
@@ -276,19 +278,7 @@ public class MasterController extends HttpServlet {
     }
     catch(Exception e){
 	e.getMessage();
-    }
-
-
-
-
-
-
-		
+    }		
   }//doPost
-
-
-
-
-
-
+}
 

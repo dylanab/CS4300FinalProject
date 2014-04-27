@@ -4,7 +4,9 @@
     <javac srcdir="src" destdir="classes">
       <classpath>
         <pathelement location="/opt/apache-tomcat-7.0.52/lib/servlet-api.jar" />
-        <pathelement location="/usr/share/java/mysql-connector-java.jar" />
+        <!--<pathelement location="/home/student/jars/mysql-connector-java.jar" />-->
+	<pathelement location="/home/student/jars/mysql-connector-java-5.1.29-bin.jar" />
+
       </classpath>
     </javac>
   </target>

@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import daos.*;
 import security.*;
 import dtos.*;
@@ -27,9 +30,11 @@ public class LoginController extends HttpServlet {
 	 * Idempotent actions: 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    try {
-		ServletContext ctx = this.getServletContext();
 		RequestDispatcher dispatcher;
+		ServletContext ctx;
+	    try {
+		ctx = this.getServletContext();
+
 	    } catch(Exception e) {
 		e.getMessage();
 	    }
@@ -39,13 +44,11 @@ public class LoginController extends HttpServlet {
 	 * Non-Idempotent actions: Login
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    try{
-		ServletContext ctx = this.getServletContext();
 		RequestDispatcher dispatcher;
-	    }//try
-	    catch(Exception e){
-		e.getMessage();
-	    }
+		ServletContext ctx;
+	    try{
+		ctx = this.getServletContext();
+
 	    String username = request.getParameter("username");
 	    String password = request.getParameter("password");
 
@@ -71,8 +74,12 @@ public class LoginController extends HttpServlet {
 	    } else {
 		//login unsuccessful, route back to login with a thing to set off the c:if
 		request.setAttribute("error", "name/pass incorrect");
-		dispatcher = ctx.getReqestDispatcher("/login.jsp");
+		dispatcher = ctx.getRequestDispatcher("/login.jsp");
 	    }
 	    dispatcher.forward(request, response);
+	    }//try
+	    catch(Exception e){
+		e.getMessage();
+	    }
 	}//doPost
 }//class
