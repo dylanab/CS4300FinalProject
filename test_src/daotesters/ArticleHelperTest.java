@@ -161,7 +161,7 @@ public class ArticleHelperTest extends TestCase{
 	articleList = instance.articleSearchOfUser();
 
 	assertNotNull(articleList.get(0));
-	assertEquals(articleList.get(0).getText, "DERDEDRERERDER");
+	assertEquals(articleList.get(0).getText(), "DERDEDRERERDER");
 
 	assertEquals("should only find one article", 1, articleList.size());
         assertEquals("author id", 1, articleList.get(0).getAuthor_id());

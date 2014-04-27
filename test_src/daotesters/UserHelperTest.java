@@ -71,7 +71,7 @@ public class UserHelperTest extends TestCase {
 
 	    userList = instance.getUsers();
 
-	    assertEquals("length after one user insert", 1, workerList.size());
+	    assertEquals("length after one user insert", 1, userList.size());
 	    assertEquals("username", "luke", userList.get(0).getName());
 	    assertEquals("passowrd", "pass", userList.get(0).getPassword());
 	    assertEquals("role", 4 , userList.get(0).getRole());
@@ -93,13 +93,13 @@ public class UserHelperTest extends TestCase {
             instance.setPassword("pass");
             instance.setRole(4);
             instance.setImage_path("path");
-            instance.addUser();
+            instance.addNewUser();
 
 	    userList = instance.getUsers();
 
 	    instance.setUid(userList.get(0).getId());
 	    instance.setPassword("newpass");
-	    instance.changePassword();
+	    instance.changePW();
 
 	    userList = instance.getUsers();
 
@@ -120,7 +120,7 @@ public class UserHelperTest extends TestCase {
             instance.setPassword("pass");
             instance.setRole(3);
             instance.setImage_path("path");
-            instance.addUser();
+            instance.addNewUser();
 
 	    userList = instance.getUsers();
 	    
@@ -145,7 +145,7 @@ public class UserHelperTest extends TestCase {
 		instance.setPassword("pass");
 		instance.setRole(3);
 		instance.setImage_path("path");
-		instance.addUser();
+		instance.addNewUser();
         
 		User u = instance.validate("luke", "pass");
         
@@ -162,10 +162,10 @@ public class UserHelperTest extends TestCase {
             ArrayList<User> userList = new ArrayList<User>();
 
             User user = new User("dylan", 4, "pass", "path");
-            instance.setUsername(u.getName());
-            instance.setRole(u.getRole());
-            instance.setPassword(u.getPassword());
-            instance.setImage_path(u.getImage_path());
+            instance.setUsername(user.getName());
+            instance.setRole(user.getRole());
+            instance.setPassword(user.getPassword());
+            instance.setImage_path(user.getImage_path());
             instance.addNewUser();
 
             userList = instance.getUsers();
