@@ -5,7 +5,7 @@ User roles are stored as Ints!
 4 : Admin
 
 Team TODO list:
-Primary: -finish up jsps (chris)
+Primary: -debug jsps (chris)
          -static file stuff (dylan?)
          -get and post request logic for editingview (Luke)
          -deploy and debug (All)
@@ -18,7 +18,7 @@ Make sure all your code has your name on it and is SPEC COMMENTED
 
 What are you working on?
 
-Chris: Styling JSPs.
+Chris: Finishing frontpage and debugging other JSPs
 
 Michael: Added the schema; see commit comment
 
