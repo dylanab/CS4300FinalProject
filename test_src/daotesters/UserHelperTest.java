@@ -22,9 +22,9 @@ public class UserHelperTest extends TestCase {
 	public void setUp() throws Exception {
 	    super.setUp();
 
-	    String JDBC_URL = "jdbc:mysql://172.17.152.92/testpolitalk";
-	    String DB_USER = "luke";
-	    String DB_PASS  = "ukulele5";
+	    String JDBC_URL = "jdbc:mysql://localhost/testpolitalk";
+	    String DB_USER = "chris";
+	    String DB_PASS  = "pass";
 
 	    try {
 		//Class.forName("com.mysql.jdbc.Driver");
@@ -48,7 +48,7 @@ public class UserHelperTest extends TestCase {
 
 	@Test
 	public void testConstructor() {
-		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+		UserHelper instance = new UserHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
 		assertNotNull("Constructor not null", instance);
 	    
 	}
@@ -59,7 +59,7 @@ public class UserHelperTest extends TestCase {
 	*/
 	@Test
 	public void addUserTest() throws Exception{
-	    UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	    UserHelper instance = new UserHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
 	    ArrayList<User> userList = new ArrayList<User>();
 
 	    User u = new User("luke", 4, "pass", "path");
@@ -86,7 +86,7 @@ public class UserHelperTest extends TestCase {
 	@Test
 	public void passwordChangeTest(){
 
-		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+		UserHelper instance = new UserHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
 	    ArrayList<User> userList = new ArrayList<User>();
 	
 	    instance.setUsername("luke");
@@ -113,7 +113,7 @@ public class UserHelperTest extends TestCase {
 	 */
 	@Test
 	public void roleChangeTest(){
-	    UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	    UserHelper instance = new UserHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
 	    ArrayList<User> userList = new ArrayList<User>();
 	
 	    instance.setUsername("luke");
@@ -139,7 +139,7 @@ public class UserHelperTest extends TestCase {
 	 */
 	@Test
 	public void validateTest(){
-		UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+		UserHelper instance = new UserHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
 		
 		instance.setUsername("luke");
 		instance.setPassword("pass");
@@ -158,7 +158,7 @@ public class UserHelperTest extends TestCase {
         @Test
         public void testGetUser() {
 
-	    UserHelper instance = new UserHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	    UserHelper instance = new UserHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
             ArrayList<User> userList = new ArrayList<User>();
 
             User user = new User("dylan", 4, "pass", "path");

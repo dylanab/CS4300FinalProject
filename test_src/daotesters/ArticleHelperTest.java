@@ -23,9 +23,9 @@ public class ArticleHelperTest extends TestCase{
     public void setUp() throws Exception {
 	super.setUp();
 
-        String JDBC_URL = "jdbc:mysql://172.17.152.92/testpolitalk";
-        String DB_USER = "luke";
-        String DB_PASS  = "ukulele5";
+        String JDBC_URL = "jdbc:mysql://localhost/testpolitalk";
+        String DB_USER = "chris";
+        String DB_PASS  = "pass";
 
         try {
             //Class.forName("com.mysql.jdbc.Driver");
@@ -49,7 +49,7 @@ public class ArticleHelperTest extends TestCase{
 
     @Test
 	public void testConstructor() {
-	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	ArticleHelper instance = new ArticleHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
 	assertNotNull("Constructor not null", instance);
 	//assertNotNull("",);
 
@@ -61,7 +61,7 @@ public class ArticleHelperTest extends TestCase{
      */
     @Test
     public void submitArticleTest() throws Exception{
-	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	ArticleHelper instance = new ArticleHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
 	ArrayList<Article> articleList = new ArrayList<Article>();
 	
 	Article article1 = new Article(1, "Article 1", "lolololol", "path", "something, something else", 0, 1, 2);
@@ -83,7 +83,7 @@ public class ArticleHelperTest extends TestCase{
      */
     @Test
     public void updateArticleText() throws Exception{
-    	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+    	ArticleHelper instance = new ArticleHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
     	ArrayList<Article> articleList = new ArrayList<Article>();
     	
     	Article article1 = new Article(1, "Article 1", "lolololol", "path", "something, something else", 0, 1, 2);
@@ -100,7 +100,7 @@ public class ArticleHelperTest extends TestCase{
      *Test article removal
      */
      public void removeArticleTest() throws Exception {
-	 ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	 ArticleHelper instance = new ArticleHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
 	 ArrayList<Article> articleList = new ArrayList<Article>();
 
 	 Article article = new Article(1, "Article is here", "lolololol", "path", "something, something else", 0, 1, 2);
@@ -123,7 +123,7 @@ public class ArticleHelperTest extends TestCase{
      *Test checkForArticle 
      */
     public void checkForArticleTest() throws Exception {
-	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	ArticleHelper instance = new ArticleHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
 	ArrayList<Article> articleList = new ArrayList<Article>();
 
 	Article article = new Article(1, "Article Title", "lolololol", "path", "something, something else", 0, 1, 2);
@@ -145,7 +145,7 @@ public class ArticleHelperTest extends TestCase{
      *author: Dylan Bowne
      */
     public void testArticleSearch() throws Exception {
-	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
+	ArticleHelper instance = new ArticleHelper("jdbc:mysql://localhost/testpolitalk", "chris", "pass");
         ArrayList<Article> articleList = new ArrayList<Article>();
 
         Article article1 = new Article(1, "Article Title1", "lolololol", "path", "something, something else", 0, 1, 2);

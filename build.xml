@@ -21,7 +21,7 @@
   </target>
 
 
-<!--  <target name="test_compile" depends="compile">
+ <target name="test_compile" depends="compile">
     <javac srcdir="test_src" destdir="test_classes">
       <classpath>
         <pathelement location="classes"/>
@@ -49,10 +49,10 @@
     <test name="daotesters.ArticleHelperTest" />
     <test name="daotesters.UserHelperTest"/>
     </junit>
-  </target> -->
+  </target> 
 
 
-  <target name="deploy" depends="compile">
+  <target name="deploy" depends="test">
     <war webxml="web.xml" destfile="PoliTalk.war" basedir="web" />
     <copy file="PoliTalk.war" todir="/opt/apache-tomcat-7.0.52/webapps" />
   </target>

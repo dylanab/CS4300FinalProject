@@ -9,7 +9,7 @@
  */
 angular.module('frontPage', [ //module dependencies
     'ngRoute',
-    'ArticleList'
+    'ArticleFactory'
 ])
     .config(function ($routeProvider, $locationProvider) {
 	$routeProvider

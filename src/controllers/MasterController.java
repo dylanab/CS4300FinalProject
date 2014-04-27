@@ -111,7 +111,7 @@ public class MasterController extends HttpServlet {
 	else if(userPath.equals("/articleView")){
 	    /* dispatch to articleview */
 	    Article article_object;
-	    ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
+	    ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.91/politalk","chris","pass");
 	    helper.setArticle_id(article_id);
 	    article_object = helper.getArticle();	
 
@@ -131,7 +131,7 @@ public class MasterController extends HttpServlet {
 	}
 	else if(userPath.equals("/editorView")){ /* dispatch to editArticle */
 	        Article article_object;
-	        ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
+	        ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.91/politalk","chris","pass");
 		helper.setArticle_id(article_id);
 	        article_object = helper.getArticle();
 	    
@@ -149,7 +149,7 @@ public class MasterController extends HttpServlet {
 	else{
 	    /* dispatch to profile page */
 	    User user_object;
-	    UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
+	    UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.91/politalk","chris","pass");
 	    helper.setUid(user_id);
 	    user_object = helper.getUser();
 
@@ -234,7 +234,7 @@ public class MasterController extends HttpServlet {
 	    if(pass == null){ /* add a new user */
 		if(pass == confirmpass){
 		    Encrypter.toSha256(pass);
-		    UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
+		    UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.91/politalk","chris","pass");
 		    helper.setUsername(user);
 		    helper.setPassword(pass);
 		    helper.setRole(role);
@@ -246,7 +246,7 @@ public class MasterController extends HttpServlet {
 	    }
 	    else if(role == -1){ /* request to change a user's password */
 		if(pass == confirmpass){
-		    UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
+		    UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.91/politalk","chris","pass");
 		    Encrypter.toSha256(pass);
 		    helper.setUsername(user);
 		    helper.setPassword(pass);
@@ -254,7 +254,7 @@ public class MasterController extends HttpServlet {
 		}
 	    }
 	    else{ /* request to change a user's role */
-		UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
+		UserHelper helper = new UserHelper("jdbc:mysql://172.17.152.91/politalk","chris","pass");
                 helper.setUsername(user);
                 helper.setRole(role);
                 helper.changeRole();
@@ -264,7 +264,7 @@ public class MasterController extends HttpServlet {
         }
         else if(userPath.equals("/modControls")){
 	    /* request to remove an article */
-	    ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
+	    ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.91/politalk","chris","pass");
 	    helper.setArticle_id(article_id);
 	    helper.removeArticle();
 	
@@ -277,7 +277,7 @@ public class MasterController extends HttpServlet {
         }
         else if(userPath.equals("/createArticle")){
 	    /* compose new article */
-            ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.92/politalk","luke","ukulele5");
+            ArticleHelper helper = new ArticleHelper("jdbc:mysql://172.17.152.91/politalk","chris","pass");
             Article article_object  = new Article(articleTitle, articleContent, "article_default.jpg", category, 0,(int) session_id);;
             helper.addArticleToDB(article_object);
             request.setAttribute("article_object", article_object);

@@ -24,7 +24,8 @@
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript">
-      app.factory('ArticleList', function() {
+angular.module('ArticleFactory', [])
+.factory('ArticleList', function() {
           var articleList = {};
           articleList.articles = [ 
       <c:forEach var="article" items="${articleList}" varStatus="art_status">
