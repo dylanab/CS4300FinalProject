@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
+import junit.framework.TestCase;
+
 import java.util.ArrayList;
 
 import daos.*;
@@ -80,7 +82,7 @@ public class ArticleHelperTest extends TestCase{
      * Test for editing an article's text
      */
     @Test
-    public void updateArticleText() throws Exception(){
+    public void updateArticleText() throws Exception{
     	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
     	ArrayList<Article> articleList = new ArrayList<Article>();
     	
@@ -97,17 +99,17 @@ public class ArticleHelperTest extends TestCase{
     /**
      *Test article removal
      */
-     public void removeArticleTest() throws Exception() {
+     public void removeArticleTest() throws Exception {
 	 ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	 ArrayList<Article> articleList = new ArrayList<Article>();
 
-	 Article article2 = new Article(1, "Article 2 is here", "lolololol", "path", "something, something else", 0, 1, 2);
-	 instance.addArticleToDB(article2);
+	 Article article = new Article(1, "Article is here", "lolololol", "path", "something, something else", 0, 1, 2);
+	 instance.addArticleToDB(article);
 
 	 articleList = instance.getArticles();
-	 assertEquals("new article name", "Article 2 is here", articleList.get(1).getTitle());
+	 assertEquals("new article name", "Article is here", articleList.get(0).getTitle());
 	 
-	 int a_id = articleList(.get(1).getId());
+	 int a_id = articleList.get(0).getId());
 	 instance.setArticle_id(a_id);
 	 instance.removeArticle();
 
@@ -119,7 +121,7 @@ public class ArticleHelperTest extends TestCase{
     /**
      *Test checkForArticle 
      */
-    public void checkForArticleTest() throws Exception() {
+    public void checkForArticleTest() throws Exception {
 	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
 	ArrayList<Article> articleList = new ArrayList<Article>();
 
@@ -140,7 +142,7 @@ public class ArticleHelperTest extends TestCase{
      *Test articleSearch
      *author: Dylan Bowne
      */
-    public void testArticleSearch() throws Exception() {
+    public void testArticleSearch() throws Exception {
 	ArticleHelper instance = new ArticleHelper("jdbc:mysql://172.17.152.92/testpolitalk", "luke", "ukulele5");
         ArrayList<Article> articleList = new ArrayList<Article>();
 
@@ -166,6 +168,5 @@ public class ArticleHelperTest extends TestCase{
         assertEquals("categories", "something, something else", articleList.get(0).getCategories());
 
     }
-
 
 }//class

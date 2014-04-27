@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
+import junit.framework.TestCase;
+
 import java.util.ArrayList;
 
 import daos.*;
