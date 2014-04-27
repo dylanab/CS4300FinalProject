@@ -58,9 +58,9 @@ public class LoginController extends HttpServlet {
 
 	    String hex_pass = Encrypter.toSha256(password);
 
-	    String db_user = "testuser";
-	    String db_pass = "testpass";
-	    String db_url = "jdbc:mysql://localhost/testdb";
+	    String db_user = "luke";
+	    String db_pass = "ukulele5";
+	    String db_url = "jdbc:mysql://172.17.152.92/politalk";
 
 	    UserHelper userhelper = new UserHelper(db_url, db_user, db_pass);
 	    User user = userhelper.validate(username, hex_pass);
