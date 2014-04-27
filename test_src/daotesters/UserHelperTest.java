@@ -179,7 +179,7 @@ public class UserHelperTest extends TestCase {
 	    assertNotNull(returned_user);
 
             assertEquals("username", "dylan", returned_user.getName());
-            assertEquals("passowrd", "pass", returned_user.get(0).getPassword());
+            assertEquals("passowrd", "pass", returned_user.getPassword());
             assertEquals("role", 4, returned_user.getRole());
 
 	}
