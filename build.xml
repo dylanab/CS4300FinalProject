@@ -16,7 +16,10 @@
     <javac srcdir="test_src" destdir="test_classes">
       <classpath>
         <pathelement location="classes"/>
-        <pathelement location="/usr/share/java/junit4.jar"/>
+	<pathelement location="/usr/share/java/junit4.jar"/>
+        <pathelement location="/home/student/jars/junit4.jar" />
+        <pathelement location="/home/student/jars/hamcrest-core-1.1.jar" />
+
         <pathelement location="/opt/apache-tomcat-7.0.52/lib/servlet-api.jar"/>
       </classpath>
     </javac>

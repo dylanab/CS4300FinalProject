@@ -1,10 +1,11 @@
-package pt;
+package dtotesters;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.TestCase;
-
+import dtos.*;
+import daos.*;
 public class UserTest extends TestCase {
 
 	@Before
