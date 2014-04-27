@@ -11,6 +11,7 @@ import org.json.simple.JSONObject;
 
 /**
  * Servlet implementation class ArticleController
+ * Author: Dylan Bowne
  */
 @WebServlet("/Article")
 public class ArticleController extends HttpServlet {
