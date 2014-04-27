@@ -70,7 +70,7 @@ public class ArticleHelperTest extends TestCase{
 	articleList = instance.getArticles();
 
 	assertEquals("length after one article insert", 1, articleList.size());
-	assertEquals("author id", 1, articleList.get(0).getAuthorId());
+	assertEquals("author id", 1, articleList.get(0).getAuthor_id());
 	assertEquals("text", "lolololol", articleList.get(0).getArticleText());
 	assertEquals("response", 2, articleList.get(0).getArticleResponses());
 	assertEquals("imagepath", "path", articleList.get(0).getArticleImagePath());
@@ -161,7 +161,7 @@ public class ArticleHelperTest extends TestCase{
 	assertEquals(articleList.get(0).getText, "DERDEDRERERDER");
 
 	assertEquals("should only find one article", 1, articleList.size());
-        assertEquals("author id", 1, articleList.get(0).getAuthorId());
+        assertEquals("author id", 1, articleList.get(0).getAuthor_id());
         assertEquals("text", "DERDEDRERERDER", articleList.get(0).getArticleText());
         assertEquals("response", 2, articleList.get(0).getArticleResponses());
         assertEquals("imagepath", "path", articleList.get(0).getArticleImagePath());
