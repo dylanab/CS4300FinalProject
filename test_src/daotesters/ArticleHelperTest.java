@@ -73,7 +73,7 @@ public class ArticleHelperTest extends TestCase{
 	assertEquals("author id", 1, articleList.get(0).getAuthor_id());
 	assertEquals("text", "lolololol", articleList.get(0).getText());
 	assertEquals("response", 2, articleList.get(0).getResponse_id());
-	assertEquals("imagepath", "path", articleList.get(0).getImagePath());
+	assertEquals("imagepath", "path", articleList.get(0).getImage_path());
 
 
     }//addArticleTest
@@ -114,7 +114,8 @@ public class ArticleHelperTest extends TestCase{
 	 instance.removeArticle();
 
 	 //check for article, shouldn't find it. NOTE: this also partially tests checkForArticle
-	 Article foundArticle = instance.checkForArticle(a_id);
+	 instance.setArticle_id(a_id);
+	 Article foundArticle = instance.getArticle();
 	 assertNull(foundArticle);
      }
 
@@ -134,7 +135,8 @@ public class ArticleHelperTest extends TestCase{
 	int a_id = articleList.get(0).getId();
 
 	//check for article, should find it.
-	Article foundArticle = instance.checkForArticle(a_id);
+	instance.setArticle_id(a_id);
+	Article foundArticle = instance.getArticle();
 	assertNotNull(foundArticle);
     }
 
@@ -149,6 +151,7 @@ public class ArticleHelperTest extends TestCase{
         Article article1 = new Article(1, "Article Title1", "lolololol", "path", "something, something else", 0, 1, 2);
         Article article2 = new Article(2, "Article Title2", "DERDEDRERERDER", "path", "something, something else", 0, 1, 2);
         Article article3 = new Article(3, "Article Title3", "hi", "path", "something, something else", 0, 2, 2);
+
         instance.addArticleToDB(article1);        
 	instance.addArticleToDB(article2);        
 	instance.addArticleToDB(article3);
@@ -164,7 +167,7 @@ public class ArticleHelperTest extends TestCase{
         assertEquals("author id", 1, articleList.get(0).getAuthor_id());
         assertEquals("text", "DERDEDRERERDER", articleList.get(0).getText());
         assertEquals("response", 2, articleList.get(0).getResponse_id());
-        assertEquals("imagepath", "path", articleList.get(0).getImagePath());
+        assertEquals("imagepath", "path", articleList.get(0).getImage_path());
         assertEquals("categories", "something, something else", articleList.get(0).getCategories());
 
     }
