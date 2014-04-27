@@ -3,6 +3,16 @@ User roles are stored as Ints!
 2 : User
 3 : Mod
 4 : Admin
+Users
+luke (lukePW)
+dylan (dylanPW)
+michael (michaelPW)
+chris (chrisPW)
+joe (joePW)
+george (georgePW)
+dan (danPW)
+lucy (lucyPW)
+bob (bobPW)
 
 Team TODO list:
 Primary: -debug jsps (chris)
