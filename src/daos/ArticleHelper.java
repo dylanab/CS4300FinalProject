@@ -61,7 +61,6 @@ public class ArticleHelper {
 	/**
 	 * Retrieves all of the articles from the database
 	 * and returns them in an array list for the java classes
-	 * as well as forms a json object for the angular
 	 */
 	public ArrayList<Article> getArticles() {
 		//String query = "Select a.Id, a.Catagories, u.Uid, a.Hits, a.ImageFilePath, a.ArticleText, a.Response, u.Username, u.Password, u.ProfilePicPath, u.Role, a.Title from Articles a, Users u";
@@ -241,6 +240,11 @@ public class ArticleHelper {
 		return aId;
 	}
 	
+	/**
+	 * Search for a user's articles where the title contains the 
+	 * searchstring set in setSearchString(String)
+	 * @return
+	 */
 	public ArrayList<Article> articleSearchOfUser(){
 		ArrayList<Article> articlesWithTitle = new ArrayList<Article>();
 		int a_id = 0;
@@ -303,6 +307,10 @@ public class ArticleHelper {
 		}
 	}
 
+	/**
+	 * Set the author's id for the PreparedStatements
+	 * @param x
+	 */
 	public void setAuthor_id(int x){
 	    try{
 		searchArticles.setInt(1, x);
@@ -310,9 +318,12 @@ public class ArticleHelper {
 	    catch(SQLException sqle){
 		sqle.getMessage();
 	    }
-
 	}
 	
+	/**
+	 * Set the article id for the PreparedStatements
+	 * @param id
+	 */
 	public void setArticle_id(int id){
 		try{
 			removeArticle.setInt(1, id);

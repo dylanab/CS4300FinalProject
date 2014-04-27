@@ -79,9 +79,6 @@ public class UserHelper {
 	
 	/**
 	 * Adds a user to the database and returns a user DTO that contains a user id
-	 * @param newUser
-	 * @param npassword
-	 * @return
 	 */
 	public void addNewUser() { //make prepared statement in aux methods
 		try{
@@ -95,9 +92,6 @@ public class UserHelper {
 	/**
 	 * Changes a users password and returns either the user if the change is successful
 	 * or null if it is unsuccessful
-	 * @param user
-	 * @param nPassword
-	 * @return
 	 */
 	public void changePW(){ //make prepared statements
 		//User u = null;
@@ -193,6 +187,10 @@ public class UserHelper {
 		}
 	}
 	
+	/**
+	 * Get a single user by a uid which is set in setUid(int)
+	 * @return
+	 */
 	public User getUser(){
 		User u = null;
 		ResultSet r;
@@ -219,7 +217,8 @@ public class UserHelper {
 	}
 	
 	/**
-	 * get a list of all users
+	 * Get a list of all users
+	 * @return
 	 */
 	public ArrayList<User> getUsers(){
 		ArrayList<User> users = new ArrayList<User>();
