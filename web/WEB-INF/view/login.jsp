@@ -158,7 +158,7 @@ a:hover {
 	<div class="mainBody">
 		<div id="loginForm">
 			<h2>Welcome to PoliTalk!</h2>
-			<form action="login" method="post">
+			<form action="Login" method="post">
 				<table>
 					<tr>
 						<td><label>Username:</label></td>

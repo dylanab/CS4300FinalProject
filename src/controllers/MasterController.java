@@ -48,13 +48,13 @@ public class MasterController extends HttpServlet {
 	int role = -1;
 	int article_id = -1;
 	int user_id = -1;
-	    System.out.println("Fuck this project1");	
+
 	HttpSession session = request.getSession();
         String session_user = (String)session.getAttribute("username");
         Integer session_role = (Integer)session.getAttribute("role");
         Integer session_id = (Integer)session.getAttribute("id");
 
-	    System.out.println("Fuck this project2");
+
 	/* get parameters */
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
@@ -62,7 +62,7 @@ public class MasterController extends HttpServlet {
 	String articleTitle = request.getParameter("articleTitle");
 	String articleContent = request.getParameter("articleContent");
 	String category = request.getParameter("category");
-	    System.out.println("Fuck this project3");
+
         if( (request.getParameter("role")) != null ){
             role = Integer.parseInt( request.getParameter("role") );
         }
@@ -72,7 +72,7 @@ public class MasterController extends HttpServlet {
 	if( (request.getParameter("user_id")) != null ){
             user_id = Integer.parseInt( request.getParameter("user_id") );
         }
-	    System.out.println("Fuck this project4");
+
         /* trim strings user, pass, confirmpass */
 	    if(user !=null) {
 		user = user.trim(); }
@@ -82,12 +82,12 @@ public class MasterController extends HttpServlet {
 	    if(confirmpass !=null) {
         confirmpass = confirmpass.trim();
 	    }
-	    System.out.println("Fuck this project5");
+
 	ServletContext ctx = this.getServletContext();
         RequestDispatcher dispatcher;	
-	    System.out.println("Fuck this project6");
+
 	String userPath = request.getServletPath();
-	System.out.println("userpath is" + userPath);
+
 	if(userPath.equals("/index")){
 	    /* dispatch to index */
 
